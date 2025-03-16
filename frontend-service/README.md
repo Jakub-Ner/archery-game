@@ -1,6 +1,7 @@
 # Frontend
 
 ## Development
+Inside a `frontend-service/` folder
 
 ### Running 
 ```bash
@@ -14,5 +15,3 @@ You may leverage shadcn components. Put the component inside `src/components/ui`
 ```bash
 npx shadcn@latest add <component-name>
 ```
-
-
