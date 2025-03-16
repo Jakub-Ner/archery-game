@@ -1,8 +1,17 @@
-# Frontend-Service
+# Frontend
 
-## Developing
-Inside a `frontend-service/` folder run
+## Development
+Inside a `frontend-service/` folder
+
+### Running 
 ```bash
 npm install
-npm run dev 
+npm run dev # start dev server
+```
+
+### Creating components:
+You may leverage shadcn components. Put the component inside `src/components/ui` folder. Coresponding demonstation put inside `src/components/demo` folder and import it inside `App.tsx`.
+
+```bash
+npx shadcn@latest add <component-name>
 ```
