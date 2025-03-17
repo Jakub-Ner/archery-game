@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  ag_postgres:
+    image: postgres:17-alpine
+    container_name: ag_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgres
+
+  ag_redis:
+    image: redis:7.4.2-alpine
+    container_name: ag_redis
+    ports:
+      - "6379:6379"
