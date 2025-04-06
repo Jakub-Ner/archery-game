@@ -2,7 +2,7 @@ import { KeyboardManager } from "@/logic/keyboardManager";
 import { ChampionComponent } from "../ui/champion";
 import { Champion, HP } from "@/logic/champion";
 import { useEffect, useState } from "react";
-import { PLAYER_COORDS, INITIAL_PLAYER_HP  } from "@/consts";
+import { PLAYER_COORDS, INITIAL_PLAYER_HP } from "@/consts";
 
 export default function ChampionDemo() {
   const player = new Champion(
@@ -16,7 +16,7 @@ export default function ChampionDemo() {
 
   const stateUpdater = (playerMovement: () => void) => {
     playerMovement()
-    setPlayerState({...playerState})
+    setPlayerState({ ...playerState })
   }
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function ChampionDemo() {
     )
     keysManager.startListening()
     return () => keysManager.stopListening();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
