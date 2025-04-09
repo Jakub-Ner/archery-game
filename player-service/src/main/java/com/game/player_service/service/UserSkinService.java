@@ -26,4 +26,8 @@ public class UserSkinService {
                 .map(UserSkin::getSkin)
                 .collect(Collectors.toList());
     }
+
+    public List<UserSkin> findByUserId(Integer userId) {
+        return userSkinRepository.findByUserId(userId);
+    }
 }

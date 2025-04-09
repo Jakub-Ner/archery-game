@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 public class SkinService {
 
     private final SkinRepository skinRepository;
-    private final UserSkinRepository userSkinRepository;
+    private final UserSkinService userSkinService;
 
     @Autowired
-    public SkinService(SkinRepository skinRepository, UserSkinRepository userSkinRepository) {
+    public SkinService(SkinRepository skinRepository,  UserSkinService userSkinService) {
         this.skinRepository = skinRepository;
-        this.userSkinRepository = userSkinRepository;
+        this.userSkinService = userSkinService;
     }
 
     public List<Skin> getAllSkins() {
@@ -29,7 +29,7 @@ public class SkinService {
 
     public List<Skin> getAllSkinsNotOwnedByUser(Integer userId) {
 
-        List<UserSkin> userSkins = userSkinRepository.findByUserId(userId);
+        List<UserSkin> userSkins = userSkinService.findByUserId(userId);
 
         Set<Integer> ownedSkinIds = userSkins.stream()
                 .map(userSkin -> userSkin.getSkin().getId())
@@ -40,5 +40,9 @@ public class SkinService {
         return allSkins.stream()
                 .filter(skin -> !ownedSkinIds.contains(skin.getId()))
                 .collect(Collectors.toList());
+    }
+
+    public List<Skin> getAllSkinsByUserId(Integer userId) {
+        return userSkinService.getAllSkinsByUserId(userId);
     }
 }

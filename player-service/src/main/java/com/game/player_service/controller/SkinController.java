@@ -26,8 +26,13 @@ public class SkinController {
         return skinService.getAllSkins();
     }
 
-    @GetMapping("/{userId}/available")
+    @GetMapping("/unowned/{userId}")
     public List<Skin> getAllSkinsNotOwnedByUser(@PathVariable Integer userId) {
         return skinService.getAllSkinsNotOwnedByUser(userId);
+    }
+
+    @GetMapping("/owned/{userId}")
+    public List<Skin> getAllSkinByUserId(@PathVariable Integer userId) {
+        return skinService.getAllSkinsByUserId(userId);
     }
 }
