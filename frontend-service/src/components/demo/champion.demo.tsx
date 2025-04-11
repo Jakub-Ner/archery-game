@@ -2,7 +2,8 @@ import { KeyboardManager } from "@/logic/keyboardManager";
 import { ChampionComponent } from "../ui/champion";
 import { Champion, HP } from "@/logic/champion";
 import { useEffect, useState } from "react";
-import { PLAYER_COORDS, INITIAL_PLAYER_HP  } from "@/consts";
+import { PLAYER_COORDS, INITIAL_PLAYER_HP } from "@/consts";
+import { WSClient } from "@/utils/WSClient";
 
 export default function ChampionDemo() {
   const player = new Champion(
@@ -16,10 +17,11 @@ export default function ChampionDemo() {
 
   const stateUpdater = (playerMovement: () => void) => {
     playerMovement()
-    setPlayerState({...playerState})
+    setPlayerState({ ...playerState })
   }
 
   useEffect(() => {
+    WSClient.get().activate()
     const keysManager = new KeyboardManager(
       () => stateUpdater(player.goRight.bind(player)),
       () => stateUpdater(player.goLeft.bind(player)),
@@ -27,8 +29,11 @@ export default function ChampionDemo() {
       () => stateUpdater(player.goDown.bind(player)),
     )
     keysManager.startListening()
-    return () => keysManager.stopListening();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      keysManager.stopListening();
+      WSClient.get().stop()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
