@@ -24,7 +24,7 @@ export class Champion {
     public skinPath: string,
     public hp: HP,
     public coords: Coords,
-  ) { 
+  ) {
       // WSClient.get().subscribe(WS_SUB_PLAYER_POSITION_ROUTE, (message) => {
       //   const data = JSON.parse(message.body);
       //   console.log('Received message from server', data);
