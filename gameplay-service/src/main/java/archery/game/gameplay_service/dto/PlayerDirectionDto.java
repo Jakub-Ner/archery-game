@@ -1,26 +1,12 @@
 package archery.game.gameplay_service.dto;
 
+import archery.game.gameplay_service.entity.Direction;
+import lombok.Data;
+
+
+@Data
 public class PlayerDirectionDto {
-    public enum Direction {
-        NONE("NONE"),
-        UP("UP"),
-        DOWN("DOWN"),
-        LEFT("LEFT"),
-        RIGHT("RIGHT");
-
-        public final String value;
-
-        Direction(String value) {
-            this.value = value;
-        }
-    }    
 
     public Direction newDirection;
 
-    public String toString() {
-        return "PlayerDirectionDto{" +
-                "newDirection=" + newDirection +
-                '}';
-
-    }
 }

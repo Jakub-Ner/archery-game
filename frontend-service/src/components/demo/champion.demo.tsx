@@ -20,7 +20,12 @@ export default function ChampionDemo() {
     setPlayerState({ ...playerState })
   }
 
+
   useEffect(() => {
+    WSClient.get().onConnect(() => {
+      player.connect(setPlayerState); 
+    });
+
     WSClient.get().activate()
     const keysManager = new KeyboardManager(
       () => stateUpdater(player.goRight.bind(player)),

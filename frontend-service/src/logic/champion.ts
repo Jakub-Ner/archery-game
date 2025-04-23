@@ -24,36 +24,26 @@ export class Champion {
     public skinPath: string,
     public hp: HP,
     public coords: Coords,
-  ) {
-      // WSClient.get().subscribe(WS_SUB_PLAYER_POSITION_ROUTE, (message) => {
-      //   const data = JSON.parse(message.body);
-      //   console.log('Received message from server', data);
-      //   this.coords.x = data.x;
-      //   this.coords.y = data.y;
-      //   this.hp.current = data.hp;
-      // });
-  }
+  ) {}
   lvl: number = 1;
-  ok: boolean = false;
   currentDirection: Direction = Direction.NONE;
 
-  public connect(){
-    if(this.ok) return;
-    this.ok = true;
+  public connect(setter: (champion: Champion) => void) {
     WSClient.get().subscribe(WS_SUB_PLAYER_POSITION_ROUTE, (message) => {
       const data = JSON.parse(message.body);
+
       console.log('Received message from server', data);
       this.coords.x = data.x;
       this.coords.y = data.y;
       this.hp.current = data.hp;
+
+      setter({...this})
     });
   }
 
   private notifyAboutDirectionChange = () => {
-    this.connect();
-    const wsClient = WSClient.get();
     console.log('Sending direction change to server', this.currentDirection);
-    wsClient.send(WS_PUBLISH_DIRECTION_ROUTE, ({
+    WSClient.get().send(WS_PUBLISH_DIRECTION_ROUTE, ({
       newDirection: this.currentDirection,
     }));
   }
@@ -64,7 +54,6 @@ export class Champion {
       console.log('Direction changed to right');
       this.notifyAboutDirectionChange();
     }
-    // this.coords.x += MOVEMENT_STEP;
   }
 
   public goLeft = () => {
@@ -72,7 +61,6 @@ export class Champion {
       this.currentDirection = Direction.LEFT;
       this.notifyAboutDirectionChange();
     }
-    // this.coords.x -= MOVEMENT_STEP;
   }
 
   public goUp = () => {
@@ -80,7 +68,6 @@ export class Champion {
       this.currentDirection = Direction.UP;
       this.notifyAboutDirectionChange();
     }
-    // this.coords.y -= MOVEMENT_STEP;
   }
 
   public goDown = () => {
@@ -88,7 +75,6 @@ export class Champion {
       this.currentDirection = Direction.DOWN;
       this.notifyAboutDirectionChange();
     }
-    // this.coords.y += MOVEMENT_STEP;
   }
 
 }

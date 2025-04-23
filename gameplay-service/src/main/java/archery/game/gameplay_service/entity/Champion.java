@@ -1,7 +1,6 @@
 package archery.game.gameplay_service.entity;
 
 import lombok.Data;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
@@ -32,6 +31,7 @@ public class Champion {
 
         x = DEFAULT_X;
         y = DEFAULT_Y;
+        direction = Direction.NONE;
     }
 
     // dynamic
@@ -49,7 +49,7 @@ public class Champion {
 
     private int x;
     private int y;
-    // private Direction direction;
+    private Direction direction;
 
     // default constants
     public static final int DEFAULT_LEVEL = 1;

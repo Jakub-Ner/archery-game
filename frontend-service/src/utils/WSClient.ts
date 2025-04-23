@@ -43,6 +43,10 @@ export class WSClient {
     this!.client.activate();
   }
 
+  onConnect(callback: () => void) {
+    this.client.onConnect = callback;
+  }
+
   send(destination: string, body: Record<string, unknown>) {
     this.client.publish({ destination, body: JSON.stringify(body) });
   }
