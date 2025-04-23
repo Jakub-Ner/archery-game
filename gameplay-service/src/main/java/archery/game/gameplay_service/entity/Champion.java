@@ -1,6 +1,7 @@
 package archery.game.gameplay_service.entity;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
