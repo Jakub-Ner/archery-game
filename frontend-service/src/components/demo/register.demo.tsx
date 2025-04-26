@@ -1,67 +1,55 @@
-import { Dialog, DialogContent } from '../ui/login';
+import { Dialog, DialogContent } from '../ui/register';
+import { cn } from "@/lib/utils";
 
 export default function RegisterDemo() {
   return (
     <Dialog>
-      <DialogContent>
-        <h3 className="text-center text-xl font-semibold mb-4">Register</h3>
-        <label htmlFor="register_info" className="block">
-          Create a new account by entering nickname, your email and password below.
-        </label>
-        <form className="space-y-4">
-          <div>
-            <label htmlFor="nickname" className="block">Nickname</label>
-            <input
-              type="email"
-              id="nickname"
-              className="w-full p-2 border rounded"
-              placeholder="Type your nickname"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block">Email</label>
-            <input
-              type="email"
-              id="email"
-              className="w-full p-2 border rounded"
-              placeholder="Type your email"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block">Password</label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-2 border rounded"
-              placeholder="Type your password"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="confirm_password" className="block">Confirm Password</label>
-            <input
-              type="password"
-              id="confirm_password"
-              className="w-full p-2 border rounded"
-              placeholder="Confirm your password"
-              required
-            />
-          </div>
-          <button type="submit" className="w-full p-2 bg-green-500 text-white rounded">
+      <DialogContent className="space-y-3">
+        <h3 className="text-lg font-semibold text-center">Register</h3>
+        
+        <form className="space-y-3">
+          {[
+            { id: 'nickname', label: 'Nickname', type: 'text' },
+            { id: 'email', label: 'Email', type: 'email' },
+            { id: 'password', label: 'Password', type: 'password' },
+            { id: 'confirm_password', label: 'Confirm Password', type: 'password' }
+          ].map((field) => (
+            <div key={field.id}>
+              <label 
+                htmlFor={field.id} 
+                className="block text-sm mb-1"
+              >
+                {field.label}
+              </label>
+              <input
+                type={field.type}
+                id={field.id}
+                className="w-full p-2 text-sm border rounded"
+                placeholder={field.label}
+                required
+              />
+            </div>
+          ))}
+
+          <button
+            type="submit"
+            className={cn(
+              "w-full py-2 px-4",
+              "bg-primary hover:bg-primary/90 text-white",
+              "text-sm font-medium",
+              "rounded transition-colors"
+            )}
+          >
             Register
           </button>
         </form>
 
-        <div className="text-right mt-4">
-          <p className="text-sm">
-            Already have an account?{' '}
-            <a href="/" className="text-blue-500 underline">
-              Login here.
-            </a>
-          </p>
-        </div>
+        <p className="text-xs text-center text-gray-600 mt-3">
+          Already have an account?{' '}
+          <a href="/" className="text-primary hover:underline">
+            Login here
+          </a>
+        </p>
       </DialogContent>
     </Dialog>
   );

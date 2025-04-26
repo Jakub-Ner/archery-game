@@ -17,7 +17,8 @@ public class StatisticsService {
         this.statisticsRepository = statisticsRepository;
     }
 
-    public List<Statistics> getUserStatistics(Integer userId) {
-        return statisticsRepository.findAllByUserId(userId);
-    }
+    public Statistics getUserStatistics(Integer userId) {
+        return statisticsRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+    }    
 }
