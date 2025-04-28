@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MainMenu from "./pages/MainMenu"
 import React from "react";
+import ChampionDemo from "@/components/demo/champion.demo.tsx";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/menu" element={<MainMenu />} />
+      <Route path="/champion-demo" element={<ChampionDemo />} />
       </Routes>
     </Router>
   );

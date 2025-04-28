@@ -31,6 +31,7 @@ public class Champion {
 
         x = DEFAULT_X;
         y = DEFAULT_Y;
+        direction = Direction.NONE;
     }
 
     // dynamic
@@ -48,7 +49,7 @@ public class Champion {
 
     private int x;
     private int y;
-    // private Direction direction;
+    private Direction direction;
 
     // default constants
     public static final int DEFAULT_LEVEL = 1;
