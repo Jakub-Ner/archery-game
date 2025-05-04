@@ -31,6 +31,8 @@ public class PlayerController {
 	// TODO move cron to a service
 	private final SimpMessagingTemplate messagingTemplate;
 
+	private int timeCounter = 0;
+
 	@Autowired
 	public PlayerController(PlayerDirectionService playerDirectionService, SimpMessagingTemplate messagingTemplate) {
 		this.playerDirectionService = playerDirectionService;
@@ -40,12 +42,19 @@ public class PlayerController {
 	}
 
 
-	@Scheduled(fixedRate = 200) // milliseconds
+	@Scheduled(fixedRate = 50) // milliseconds
 	public void broadcastPlayerUpdate() {
-		System.out.println("Broadcasting player update. Before " + champion);
-		playerDirectionService.updatePosition(champion);
-		PlayerUpdateDto dto = new PlayerUpdateDto(champion.getX(), champion.getY(), champion.getCurrentHealth());
-		messagingTemplate.convertAndSend("/topic/player/position", dto);
+
+		timeCounter++;
+		timeCounter %= 1000;
+
+		if (timeCounter % (1000 / champion.getMovementSpeed()) == 0){
+
+			System.out.println("Broadcasting player update. Before " + champion);
+			playerDirectionService.updatePosition(champion);
+			PlayerUpdateDto dto = new PlayerUpdateDto(champion.getX(), champion.getY(), champion.getCurrentHealth());
+			messagingTemplate.convertAndSend("/topic/player/position", dto);
+		}
 	}
 
 	@MessageMapping("/player/direction")
@@ -58,7 +67,9 @@ public class PlayerController {
 	@MessageMapping("/player/position/initialize")
 	@SendTo("/topic/player/position")
 	public PlayerUpdateDto initializePlayerPosition(String playerId){
+		//TODO polacz z 2 serwisem(do logowania) i pobierz dane gracza
 		// TODO: Use playerId to get the player from postgres
-		return new PlayerUpdateDto(champion.getX(), champion.getY(), champion.getCurrentHealth());
+		Champion player = this.playerDirectionService.findById(playerId);
+		return new PlayerUpdateDto(player.getX(), player.getY(), player.getCurrentHealth());
 	}
 }

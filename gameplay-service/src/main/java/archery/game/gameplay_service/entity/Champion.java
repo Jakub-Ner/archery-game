@@ -27,7 +27,6 @@ public class Champion {
         attackRange = DEFAULT_ATTACK_RANGE;
 
         movementSpeed = DEFAULT_MOVEMENT_SPEED;
-        movementSize = DEFAULT_MOVEMENT_SIZE;
 
         x = DEFAULT_X;
         y = DEFAULT_Y;
@@ -45,7 +44,6 @@ public class Champion {
     private int attackRange;
 
     private int movementSpeed;
-    private int movementSize;
 
     private int x;
     private int y;
@@ -61,8 +59,8 @@ public class Champion {
     public static final int DEFAULT_ATTACK_SPEED = 1;
     public static final int DEFAULT_ATTACK_RANGE = 100;
 
-    public static final int DEFAULT_MOVEMENT_SPEED = 300;
-    public static final int DEFAULT_MOVEMENT_SIZE = 50;
+    public static final int DEFAULT_MOVEMENT_SPEED = 200; //will be changing
+    public static final int DEFAULT_MOVEMENT_SIZE = 50; //stay constant
 
     public static final int DEFAULT_X = 0;
     public static final int DEFAULT_Y = 0;
