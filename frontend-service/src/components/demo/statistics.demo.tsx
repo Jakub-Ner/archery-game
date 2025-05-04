@@ -7,7 +7,7 @@ export default function StatisticsDemo() {
   if (loading) return <div>Loading...</div>;
   if (!data) return <div>No statistics found</div>;
 
-  const { gamesPlayed, averageScore, killsPerDeath, totalTimePlayed } = data;
+  const { gamesPlayed, averageScore, killsPerDeath, bestScore, totalTimePlayed } = data;
 
   const formatTime = (minutes: number): string => {
     const h = Math.floor(minutes / 60);
@@ -20,6 +20,7 @@ export default function StatisticsDemo() {
       gamesPlayed={gamesPlayed}
       averageScore={averageScore}
       killsPerDeath={killsPerDeath}
+      bestScore={bestScore}
       totalTimePlayed={formatTime(totalTimePlayed)}
     />
   );

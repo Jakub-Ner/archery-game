@@ -8,15 +8,15 @@ interface SkinMatrixProps {
 
 const SkinMatrix: React.FC<SkinMatrixProps> = ({ skins, onSkinSelect }) => {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-6">
       {skins.map((skin, index) => (
         <div 
           key={index} 
           className="aspect-square"
           style={{ 
             width: '100%',
-            maxWidth: '120px',
-            minWidth: '80px'
+            maxWidth: '132px',
+            minWidth: '89px'
           }}
         >
           <Skin

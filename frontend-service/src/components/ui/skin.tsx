@@ -14,7 +14,7 @@ const Skin: React.FC<SkinProps> = ({ isPurchased, price, image, onClick }) => {
   return (
     <div
       className={cn(
-        "relative aspect-square w-full max-w-[120px] min-w-[80px]",
+        "relative aspect-square w-full max-w-[132px] min-w-[89px]",
         "border rounded-lg overflow-hidden cursor-pointer",
         "flex items-center justify-center bg-gray-100 transition-all duration-300"
       )}

@@ -7,6 +7,8 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
+  --background: url('background.png') no-repeat center center;
+  --background-size: cover;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -121,6 +123,9 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-image: url('/background.png');  /* Użyj ścieżki bezpośrednio do pliku w public */
+    background-size: cover;
+    background-position: center;
   }
+  
 }

@@ -2,6 +2,7 @@ import StartGame from "@/components/demo/startgame.demo";
 import StatisticsDemo from "../components/demo/statistics.demo";
 import SkinMatrixDemo from "../components/demo/skinMatrix.demo";
 import CoinsDemo from "../components/demo/coins.demo";
+import UserInfo from "../components/demo/userNickname.demo";
 
 export default function MainMenu() {
   return (
@@ -10,18 +11,17 @@ export default function MainMenu() {
         Archer's Survival
       </h1>
 
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 items-start justify-items-center gap-8 px-4 sm:px-6 md:px-8 py-8 lg:py-12">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 items-start justify-items-center gap-2 px-4 sm:px-6 md:px-8 py-8 lg:py-12">
         {/* Lewa kolumna - Statystyki (teraz pionowe) */}
         <div className="w-full flex justify-center lg:justify-end">
           <StatisticsDemo />
         </div>
 
         {/* Środkowa kolumna */}
-        <div className="flex flex-col items-center gap-8 w-full max-w-2xl">
+        <div className="flex flex-col items-center gap-2 w-full max-w-2xl">
+          <UserInfo />  {/* Nasz komponent z nazwą użytkownika */}
           <SkinMatrixDemo />
-          <div className="w-full max-w-xs">
-            <StartGame />
-          </div>
+          <StartGame />
         </div>
 
         {/* Prawa kolumna */}
@@ -32,3 +32,4 @@ export default function MainMenu() {
     </div>
   );
 }
+
