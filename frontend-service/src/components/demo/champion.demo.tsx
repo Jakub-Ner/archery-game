@@ -4,12 +4,13 @@ import { Champion, HP } from "@/logic/champion";
 import { useEffect, useState } from "react";
 import { PLAYER_COORDS, INITIAL_PLAYER_HP, PLAYER_IMAGE_COORDS } from "@/consts";
 import { WSClient } from "@/utils/WSClient";
+import skin_example from "@/assets/skins/pretty-woman.png";
 
 export default function ChampionDemo() {
   const player = new Champion(
       "abc123",
     "Garen",
-    "https://img.favpng.com/25/19/23/pixel-art-fan-art-png-favpng-4kSGLds3bXkK46gQJXPt5xGGh.jpg",
+    skin_example,
     new HP(INITIAL_PLAYER_HP),
     PLAYER_COORDS,
       PLAYER_IMAGE_COORDS,
