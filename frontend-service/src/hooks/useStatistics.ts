@@ -16,7 +16,7 @@ export function useStatistics(userId: number) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://${PLAYER_SERVICE_URL}/statistics/${userId}`)
+    fetch(`${PLAYER_SERVICE_URL}/statistics/${userId}`)
       .then((res) => res.json())
       .then((json) => {
         setData(json);
