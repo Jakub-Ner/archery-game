@@ -18,7 +18,7 @@ public class PlayerDirectionService {
 		championRedisService.update(champion);
 	}
 	public void updatePosition(Champion champion) {
-		int step = champion.getMovementSize();
+		int step = Champion.DEFAULT_MOVEMENT_SIZE;
 		switch (champion.getDirection()) {
 			case LEFT -> champion.setX(champion.getX() - step);
 			case RIGHT -> champion.setX(champion.getX() + step);
@@ -26,5 +26,9 @@ public class PlayerDirectionService {
 			case DOWN -> champion.setY(champion.getY() + step);
 		}
 		championRedisService.updateLocation(champion.getId(), champion.getX(), champion.getY());
+	}
+
+	public Champion findById(String id){
+		return championRedisService.findById(id);
 	}
 }
