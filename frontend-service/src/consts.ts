@@ -1,3 +1,5 @@
+// SERVICE
+export const PLAYER_SERVICE_URL = 'localhost:8080'
 
 // GENERAL
 export const MOVEMENT_STEP = 10; // px

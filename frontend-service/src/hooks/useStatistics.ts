@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {PLAYER_SERVICE_URL} from "@/consts.ts";
 
 type StatisticsData = {
   gamesPlayed: number;
@@ -15,7 +16,7 @@ export function useStatistics(userId: number) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/statistics/${userId}`)
+    fetch(`http://${PLAYER_SERVICE_URL}:8080/statistics/${userId}`)
       .then((res) => res.json())
       .then((json) => {
         setData(json);
