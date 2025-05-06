@@ -1,3 +1,5 @@
+// SERVICE
+export const PLAYER_SERVICE_URL = 'http://localhost:8080'
 
 // API
 export const HTTP_PROTOCOL = 'http://';

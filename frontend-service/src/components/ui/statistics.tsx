@@ -4,22 +4,25 @@ export function Statistics({
   gamesPlayed,
   averageScore,
   killsPerDeath,
+  bestScore,
   totalTimePlayed,
 }: {
   gamesPlayed: number;
   averageScore: number;
   killsPerDeath: number;
+  bestScore: number;
   totalTimePlayed: string;
 }) {
   const stats = [
     { label: "Games played", value: gamesPlayed },
     { label: "Average score", value: averageScore },
     { label: "Kills per death", value: killsPerDeath },
+    { label: "Best score", value: bestScore },
     { label: "Total time played", value: totalTimePlayed },
   ];
 
   return (
-    <Card className="w-full max-w-sm bg-white bg-opacity-80 shadow-lg p-6 rounded-2xl">
+    <Card className="w-full max-w-sm bg-white shadow-lg p-6 rounded-2xl">
       <CardContent className="flex flex-col items-center gap-6">
         <h2 className="text-2xl font-bold mb-4">Statistics</h2>
         {stats.map((stat, index) => (

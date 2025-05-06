@@ -3,9 +3,11 @@ package com.game.player_service.service;
 import com.game.player_service.entity.Statistics;
 import com.game.player_service.repository.StatisticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StatisticsService {
@@ -17,7 +19,11 @@ public class StatisticsService {
         this.statisticsRepository = statisticsRepository;
     }
 
-    public List<Statistics> getUserStatistics(Integer userId) {
-        return statisticsRepository.findAllByUserId(userId);
-    }
+    public Statistics getUserStatistics(Integer userId) {
+		Optional<Statistics> statistics = statisticsRepository.findById(userId);
+		if (statistics.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Statistics not found");
+		}
+		return statistics.get();
+    }    
 }

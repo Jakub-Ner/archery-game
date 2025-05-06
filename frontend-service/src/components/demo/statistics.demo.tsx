@@ -1,12 +1,27 @@
 import { Statistics } from "../ui/statistics";
+import { useStatistics } from "../../hooks/useStatistics";
 
 export default function StatisticsDemo() {
+  const { data, loading } = useStatistics(2); // <--- userId = 1
+
+  if (loading) return <div>Loading...</div>;
+  if (!data) return <div>No statistics found</div>;
+
+  const { gamesPlayed, averageScore, killsPerDeath, bestScore, totalTimePlayed } = data;
+
+  const formatTime = (minutes: number): string => {
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    return `${h}h ${m}m`;
+  };
+
   return (
     <Statistics
-      gamesPlayed={42}
-      averageScore={88.5}
-      killsPerDeath={1.75}
-      totalTimePlayed={"12h 30m"}
+      gamesPlayed={gamesPlayed}
+      averageScore={averageScore}
+      killsPerDeath={killsPerDeath}
+      bestScore={bestScore}
+      totalTimePlayed={formatTime(totalTimePlayed)}
     />
   );
 }

@@ -22,7 +22,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/{userId}")
-    public List<Statistics> getUserStatistics(@PathVariable Integer userId) {
+    public Statistics getUserStatistics(@PathVariable Integer userId) {
         return statisticsService.getUserStatistics(userId);
-    }
+    }    
 }
