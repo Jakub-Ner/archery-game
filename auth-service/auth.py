@@ -3,34 +3,29 @@ import jwt
 import os
 from datetime import datetime, timedelta
 from db_handler import get_db
-from argon2 import PasswordHasher
-import logging
 
 JWT_SECRET = os.getenv("JWT_SECRET", "changeme")
 JWT_EXPIRE_SECONDS = int(os.getenv("JWT_EXPIRE_SECONDS", 3600))
-logger = logging.getLogger(__name__)
-    
-async def register_user(nickname, email, password, db):
 
+
+async def register_user(username, email, password, db):
     hashed = argon2.hash(password)
-
     try:
         row = await db.fetchrow(
-            "INSERT INTO users (nickname, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING id;",
-            nickname, email, hashed, "USER"
+            "INSERT INTO users_archer (username, email, password_hash) VALUES ($1, $2, $3) RETURNING id;",
+            username, email, hashed
         )
-        logger.info(f"User inserted with ID: {row['id']}")
         return row["id"]
-
     except Exception as e:
-        logger.error(f"Unexpected DB error during registration: {e}")
-        raise Exception(f"An error occurred while registering the user: {e}")
-    
-async def authenticate_user(nickname, password, db):
-    user = await db.fetchrow("SELECT * FROM users WHERE nickname = $1;", nickname)
+        raise Exception("Username or email already exists.")
+
+
+async def authenticate_user(username, password, db):
+    user = await db.fetchrow("SELECT * FROM users_archer WHERE username = $1;", username)
     if not user or not argon2.verify(password, user["password_hash"]):
         return None
     return user
+
 
 def generate_token(user_id):
     expire = datetime.utcnow() + timedelta(seconds=JWT_EXPIRE_SECONDS)

@@ -2,7 +2,7 @@ import asyncpg
 from asyncpg import Pool
 import settings as conf
 
-DB_URL = f"postgresql://{conf.USER}:{conf.PASSWORD}@{conf.DB_URL}/{conf.DB_NAME}"
+DB_URL = f"postgresql://{conf.USER}:{conf.PASSWORD}@localhost:5432/{conf.DB_NAME}"
 
 pool: Pool = None
 
