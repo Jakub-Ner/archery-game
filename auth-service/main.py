@@ -4,16 +4,15 @@ from auth import register_user, authenticate_user, generate_token
 from db_handler import startup_db, shutdown_db, get_db
 from asyncpg import Connection
 from typing import AsyncGenerator
+from contextlib import asynccontextmanager
 
-app = FastAPI()
-
-@app.on_event("startup")
-async def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     await startup_db()
-
-@app.on_event("shutdown")
-async def on_shutdown():
+    yield
     await shutdown_db()
+
+app = FastAPI(lifespan=lifespan)
 
 class RegisterRequest(BaseModel):
     username: str
