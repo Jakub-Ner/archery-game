@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS "skins" CASCADE;
 DROP TABLE IF EXISTS "users" CASCADE;
 
 CREATE TABLE "users" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "nickname" varchar UNIQUE NOT NULL,
   "email" varchar UNIQUE NOT NULL,
   "password_hash" varchar NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "skins" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "image_url" varchar NOT NULL,
   "price" integer NOT NULL
@@ -28,7 +28,7 @@ CREATE TABLE "user_skins" (
 );
 
 CREATE TABLE "skin_purchase_history" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "user_id" integer NOT NULL,
   "skin_id" integer NOT NULL,
   "amount" integer NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE "skin_purchase_history" (
 );
 
 CREATE TABLE "transaction" (
-  "transaction_id" integer PRIMARY KEY,
+  "transaction_id" SERIAL PRIMARY KEY,
   "user_id" integer NOT NULL,
   "amount" integer NOT NULL,
   "price" float NOT NULL,
