@@ -19,6 +19,11 @@ const SkinMatrixDemo: React.FC = () => {
     if (!skins[index].isPurchased) {
       
       alert(`Kupujesz skórkę za ${skins[index].price} zł`);
+      setSkins((prevSkins) =>
+        prevSkins.map((skin, i) =>
+          i === index ? { ...skin, isPurchased: true } : skin
+        )
+      );
     } else {
       alert(`Skórka jest już zakupiona`);
     }

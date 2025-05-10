@@ -20,7 +20,7 @@ export default function ChampionDemo() {
 
   const stateUpdater = (playerMovement: () => void) => {
     playerMovement()
-    setPlayerState({ ...playerState })
+    setPlayerState(Object.assign(Object.create(Object.getPrototypeOf(playerState)), playerState))
   }
 
 

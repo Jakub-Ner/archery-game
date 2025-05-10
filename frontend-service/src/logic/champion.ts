@@ -1,4 +1,4 @@
-import { MOVEMENT_STEP, WS_PUBLISH_DIRECTION_ROUTE, WS_SUB_PLAYER_POSITION_ROUTE, WS_PUBLISH_POSITION_INITIALIZE } from "@/consts";
+import { /*MOVEMENT_STEP,*/ WS_PUBLISH_DIRECTION_ROUTE, WS_SUB_PLAYER_POSITION_ROUTE, WS_PUBLISH_POSITION_INITIALIZE } from "@/consts";
 import { Coords } from "./common";
 import { WSClient } from "@/utils/WSClient";
 

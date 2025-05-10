@@ -6,22 +6,17 @@ import archery.game.gameplay_service.dto.PlayerDirectionDto;
 import archery.game.gameplay_service.service.PlayerDirectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.socket.WebSocketSession;
 
-import java.util.concurrent.CopyOnWriteArraySet;
 
 @Component
 @Controller
 public class PlayerController {
-	//	TODO: Use sessions to send messages to specific players or maybe send all data to all players
-	private final CopyOnWriteArraySet<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
 	private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
 	private final PlayerDirectionService playerDirectionService;
 
@@ -33,11 +28,11 @@ public class PlayerController {
 
 	private int timeCounter = 0;
 
-	@Autowired
+
 	public PlayerController(PlayerDirectionService playerDirectionService, SimpMessagingTemplate messagingTemplate) {
 		this.playerDirectionService = playerDirectionService;
 		this.messagingTemplate = messagingTemplate;
-        this.champion = new Champion("0","agata","icon");
+        this.champion = new Champion("0","agana","icon");
 		logger.info("PlayerController initialized");
 	}
 

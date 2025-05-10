@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.lang.NonNull;
 
 @Configuration
 @EnableScheduling
@@ -20,13 +21,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private String allowedOrigins;
 
   @Override
-  public void configureMessageBroker(MessageBrokerRegistry config) {
+  public void configureMessageBroker(@NonNull MessageBrokerRegistry config) {
     config.enableSimpleBroker("/topic");
     config.setApplicationDestinationPrefixes("/app");
   }
 
   @Override
-  public void registerStompEndpoints(StompEndpointRegistry registry) {
+  public void registerStompEndpoints(@NonNull StompEndpointRegistry registry) {
     logger.info("Allowed origins: {}", allowedOrigins);
 
     registry.addEndpoint("/gameplay")

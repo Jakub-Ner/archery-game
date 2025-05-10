@@ -24,6 +24,10 @@ public class PlayerDirectionService {
 			case RIGHT -> champion.setX(champion.getX() + step);
 			case UP -> champion.setY(champion.getY() - step);
 			case DOWN -> champion.setY(champion.getY() + step);
+			case NONE -> {
+				// Do nothing
+			}
+			default -> throw new IllegalArgumentException("Unexpected value: " + champion.getDirection());
 		}
 		championRedisService.updateLocation(champion.getId(), champion.getX(), champion.getY());
 	}
