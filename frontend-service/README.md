@@ -15,3 +15,8 @@ You may leverage shadcn components. Put the component inside `src/components/ui`
 ```bash
 npx shadcn@latest add <component-name>
 ```
+
+```run game, then connect Network 1
+npm run dev -- --host 0.0.0.0
+
+```
