@@ -7,15 +7,42 @@ import org.springframework.data.redis.core.RedisHash;
 @Data
 @RedisHash
 public class Champion {
+    // default constants
+    public static final int DEFAULT_LEVEL = 1;
+    public static final float DEFAULT_EXPERIENCE = 0.0f;
+    public static final int DEFAULT_CURRENT_HEALTH = 100;
+    public static final int DEFAULT_MAX_HEALTH = 100;
+    public static final int DEFAULT_ATTACK_DAMAGE = 10;
+    public static final int DEFAULT_ATTACK_SPEED = 1;
+    public static final int DEFAULT_ATTACK_RANGE = 100;
+    public static final int DEFAULT_MOVEMENT_SPEED = 200; //will be changing
+    public static final int DEFAULT_MOVEMENT_SIZE = 50; //stay constant
+    public static final int DEFAULT_X = 50;
+    public static final int DEFAULT_Y = 50;
+    public int imageCoordX;
+    public int imageCoordY;
     @Id
-    private String id;
+    private String sessionId;
+    private String championId;
     private String name;
-    private String icon;
-
-    public Champion(String id, String name, String icon) {
-        this.id = id;
+    private String skinPath;
+    // dynamic
+    private int currentHealth;
+    private int maxHealth;
+    private int x;
+    private int y;
+    private int level;
+    private float experience;
+    private Direction direction;
+    private int attackDamage;
+    private int attackSpeed;
+    private int attackRange;
+    private int movementSpeed;
+    public Champion(String sessionId, String championId, String name, String skinPath) {
+        this.sessionId = sessionId;
+        this.championId = championId;
         this.name = name;
-        this.icon = icon;
+        this.skinPath = skinPath;
 
         level = DEFAULT_LEVEL;
         experience = DEFAULT_EXPERIENCE;
@@ -32,37 +59,5 @@ public class Champion {
         y = DEFAULT_Y;
         direction = Direction.NONE;
     }
-
-    // dynamic
-    private int level;
-    private float experience;
-    private int currentHealth;
-    private int maxHealth;
-
-    private int attackDamage;
-    private int attackSpeed;
-    private int attackRange;
-
-    private int movementSpeed;
-
-    private int x;
-    private int y;
-    private Direction direction;
-
-    // default constants
-    public static final int DEFAULT_LEVEL = 1;
-    public static final float DEFAULT_EXPERIENCE = 0.0f;
-    public static final int DEFAULT_CURRENT_HEALTH = 100;
-    public static final int DEFAULT_MAX_HEALTH = 100;
-
-    public static final int DEFAULT_ATTACK_DAMAGE = 10;
-    public static final int DEFAULT_ATTACK_SPEED = 1;
-    public static final int DEFAULT_ATTACK_RANGE = 100;
-
-    public static final int DEFAULT_MOVEMENT_SPEED = 200; //will be changing
-    public static final int DEFAULT_MOVEMENT_SIZE = 50; //stay constant
-
-    public static final int DEFAULT_X = 0;
-    public static final int DEFAULT_Y = 0;
 
 }

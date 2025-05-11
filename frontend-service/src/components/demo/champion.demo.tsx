@@ -7,8 +7,10 @@ import { WSClient } from "@/utils/WSClient";
 import skin_example from "@/assets/skins/pretty-woman.png";
 
 export default function ChampionDemo() {
+    const randomId = Math.random().toString(36).substring(2, 15);
+
   const player = new Champion(
-      "abc123",
+      randomId,
     "Garen",
     skin_example,
     new HP(INITIAL_PLAYER_HP),
