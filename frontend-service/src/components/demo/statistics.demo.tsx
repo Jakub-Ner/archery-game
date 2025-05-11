@@ -2,7 +2,11 @@ import { Statistics } from "../ui/statistics";
 import { useStatistics } from "../../hooks/useStatistics";
 
 export default function StatisticsDemo() {
-  const { data, loading } = useStatistics(2); // <--- userId = 1
+  const userId = Number(localStorage.getItem("userId"));
+
+  const { data, loading } = useStatistics(userId);
+  console.log(data);
+  console.log(userId);
 
   if (loading) return <div>Loading...</div>;
   if (!data) return <div>No statistics found</div>;
