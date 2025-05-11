@@ -6,32 +6,33 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.session.Session;
+import org.springframework.session.web.socket.config.annotation.AbstractSessionWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 @Configuration
 @EnableScheduling
 @EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-  private static final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
+public class WebSocketConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Session> {
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
 
-  @Value("${service.frontend.url}")
-  private String allowedOrigins;
+    @Value("${service.frontend.url}")
+    private String allowedOrigins;
 
-  @Override
-  public void configureMessageBroker(MessageBrokerRegistry config) {
-    config.enableSimpleBroker("/topic");
-    config.setApplicationDestinationPrefixes("/app");
-  }
+    @Override
+    protected void configureStompEndpoints(StompEndpointRegistry registry) {
+        logger.info("Allowed origins: {}", allowedOrigins);
 
-  @Override
-  public void registerStompEndpoints(StompEndpointRegistry registry) {
-    logger.info("Allowed origins: {}", allowedOrigins);
+        registry.addEndpoint("/gameplay")
+                .setAllowedOriginPatterns("*")
+                .withSockJS();
+    }
 
-    registry.addEndpoint("/gameplay")
-            .setAllowedOrigins(allowedOrigins)
-            .withSockJS();
-  }
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/topic/");
+        registry.setApplicationDestinationPrefixes("/app");
+    }
 
 }
