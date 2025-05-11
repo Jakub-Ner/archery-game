@@ -16,6 +16,10 @@ export const WS_PUBLISH_DIRECTION_ROUTE = '/app/player/direction'
 
 export const WS_PUBLISH_POSITION_INITIALIZE = '/app/player/position/initialize'
 
+export const MAPS_LOCATION = 'src/assets/maps/';
+
+
+
 // GENERAL
 export const MOVEMENT_STEP = 10; // px
 
@@ -25,3 +29,10 @@ export const PLAYER_HEIGHT = 40;
 export const INITIAL_PLAYER_HP = 100;
 export const PLAYER_COORDS = { x: 100, y: 300 };
 export const PLAYER_IMAGE_COORDS = { x: 0, y: 2 };
+export const MAP_TILE_WIDTH = 32; //px
+export const MAP_TILE_HEIGHT = 32; //px
+export const MAP_WIDTH = 64; // tiles
+export const MAP_HEIGHT = 64; // tiles
+
+
+
