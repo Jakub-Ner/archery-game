@@ -16,16 +16,29 @@ export function useStatistics(userId: number) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
+
     fetch(`${PLAYER_SERVICE_URL}/statistics/${userId}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setData(json);
-        setLoading(false);
-      })
+        .then(async (res) => {
+          if (res.status === 404) {
+            // Statystyki nie istnieją
+            console.warn("No statistics found for user.");
+            setData(null);
+          } else if (!res.ok) {
+            throw new Error(`Error fetching statistics: ${res.statusText}`);
+          } else {
+            const json = await res.json();
+            setData(json);
+          }
+        })
       .catch((err) => {
         console.error("Failed to fetch statistics", err);
         setLoading(false);
-      });
+      })
+        .finally(() => setLoading(false));
   }, [userId]);
 
   return { data, loading };

@@ -16,7 +16,7 @@ export class WSClient {
     WSClient.instance = this;
     this.client = new Client({
       webSocketFactory: () => new SockJS(`${HTTP_PROTOCOL}${url}`),
-      debug: (str) => console.log(str),
+      // debug: (str) => console.log(str),
       brokerURL: `${WS_PROTOCOL}${url}`,
       onConnect: () => {
         console.log('Connected to WebSocket');

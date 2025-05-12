@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SkinMatrix from '../ui/skinMatrix';
-import reactLogo from '@/assets/react.svg';
+import reactLogo from '../../../public/assets/react.svg';
 
 const SkinMatrixDemo: React.FC = () => {
   const [skins, setSkins] = useState([

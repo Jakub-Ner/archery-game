@@ -42,4 +42,12 @@ public class SkinService {
     public List<Skin> getAllSkinsByUserId(Integer userId) {
         return userSkinService.getAllSkinsByUserId(userId);
     }
+
+    public Skin getSelectedSkinByUserId(Integer userId) {
+        return userSkinService.findByUserId(userId).stream()
+                .filter(UserSkin::isSelected)
+                .map(UserSkin::getSkin)
+                .findFirst()
+                .orElse(null);
+    }
 }
