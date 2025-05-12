@@ -40,7 +40,7 @@
         {
          "columns":16,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/..\/..\/Users\/Micha\u0142 \u017b\u0105de\u0142ek\/Downloads\/Pixel Art Top Down - Basic v1.1.2\/Texture\/TX Plant.png",
+         "image":"C:\\Projects\\archery-game\\frontend-service\\src\\assets\\maps\\Texture\\TX Plant.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -53,19 +53,19 @@
         }, 
         {
          "firstgid":257,
-         "source":"..\/..\/..\/..\/..\/..\/Users\/Micha\u0142 \u017b\u0105de\u0142ek\/OneDrive - Politechnika Wroclawska\/ITE_sem1\/ZIWG\/archery-game\/frontend-service\/src\/assets\/maps\/TX Tileset Grass.tsx"
+         "source":"C:\\Projects\\archery-game\\frontend-service\\src\\assets\\maps\\TX Tileset Grass.tsx"
         }, 
         {
          "firstgid":321,
-         "source":"..\/..\/..\/..\/..\/..\/Users\/Micha\u0142 \u017b\u0105de\u0142ek\/OneDrive - Politechnika Wroclawska\/ITE_sem1\/ZIWG\/archery-game\/frontend-service\/src\/assets\/maps\/TX Props.tsx"
+         "source":"C:\\Projects\\archery-game\\frontend-service\\src\\assets\\maps\\TX Props.tsx"
         }, 
         {
          "firstgid":577,
-         "source":"..\/..\/..\/..\/..\/..\/Users\/Micha\u0142 \u017b\u0105de\u0142ek\/OneDrive - Politechnika Wroclawska\/ITE_sem1\/ZIWG\/archery-game\/frontend-service\/src\/assets\/maps\/TX Struct.tsx"
+         "source":"C:\\Projects\\archery-game\\frontend-service\\src\\assets\\maps\\TX Struct.tsx"
         }, 
         {
          "firstgid":833,
-         "source":"..\/..\/..\/..\/..\/..\/Users\/Micha\u0142 \u017b\u0105de\u0142ek\/OneDrive - Politechnika Wroclawska\/ITE_sem1\/ZIWG\/archery-game\/frontend-service\/src\/assets\/maps\/TX Tileset Wall.tsx"
+         "source":"C:\\Projects\\archery-game\\frontend-service\\src\\assets\\maps\\TX Tileset Wall.tsx"
         }],
  "tilewidth":32,
  "type":"map",
