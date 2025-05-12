@@ -29,10 +29,14 @@ export const PLAYER_HEIGHT = 40;
 export const INITIAL_PLAYER_HP = 100;
 export const PLAYER_COORDS = { x: 100, y: 300 };
 export const PLAYER_IMAGE_COORDS = { x: 0, y: 2 };
-export const MAP_TILE_WIDTH = 32; //px
-export const MAP_TILE_HEIGHT = 32; //px
-export const MAP_WIDTH = 64; // tiles
-export const MAP_HEIGHT = 64; // tiles
+export const TILE_WIDTH = 32; //px
+export const TILE_HEIGHT = 32; //px
+export const TILES_NUM_WIDTH = 64; // tiles
+export const TILES_NUM_HEIGHT = 64; // tiles
+export const TILES_NUM = TILES_NUM_HEIGHT === TILES_NUM_WIDTH ? TILES_NUM_WIDTH : Math.max(TILES_NUM_HEIGHT, TILES_NUM_WIDTH); // tiles
+export const MAP_WIDTH = TILES_NUM_WIDTH * TILE_WIDTH; // px
+export const MAP_HEIGHT = TILES_NUM_HEIGHT * TILE_HEIGHT; // px
+
 
 
 
