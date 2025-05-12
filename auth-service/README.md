@@ -1,10 +1,3 @@
-# to add required libs for the project
-```
-pipreqs ./
-or
-pipreqs ./ --force
-if file already exists
-```
 
 # to install libs(use your python version)
 ```

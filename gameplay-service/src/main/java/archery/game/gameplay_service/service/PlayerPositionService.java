@@ -5,10 +5,10 @@ import archery.game.gameplay_service.entity.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PlayerDirectionService {
+public class PlayerPositionService {
     private final ChampionRedisService championRedisService;
 
-    public PlayerDirectionService(ChampionRedisService championRedisService) {
+    public PlayerPositionService(ChampionRedisService championRedisService) {
         this.championRedisService = championRedisService;
     }
 

@@ -26,34 +26,19 @@ export class Champion {
     public hp: HP,
     public coords: Coords,
     public imageCoords: Coords,
-  ) {}
+  ) { }
   lvl: number = 1;
   experience: number = 0;
   currentDirection: Direction = Direction.NONE;
 
-  private findYourself = (players: Champion[]) => {
+  public findYourself = (players: Champion[]) => {
     return players.find((player) => player.championId === this.championId) as Champion;
   }
-  public connect(setter: (champion: Champion) => void) {
+  public connect() {
     WSClient.get().send(WS_PUBLISH_POSITION_INITIALIZE, {
       name: this.name,
       championId: this.championId,
       skinPath: this.skinPath,
-    });
-
-    WSClient.get().subscribe(WS_SUB_PLAYER_POSITION_ROUTE, (message) => {
-      const data = JSON.parse(message.body);
-
-  console.log("Received message: ", data);
-  const player = this.findYourself(data.players);
-    this.name = player.name;
-      this.hp = player.hp;
-      this.coords = player.coords;
-      this.imageCoords = player.imageCoords
-      this.lvl = player.lvl;
-      this.experience = player.experience;
-      this.currentDirection = player.currentDirection;
-      setter({...this})
     });
 
   }
