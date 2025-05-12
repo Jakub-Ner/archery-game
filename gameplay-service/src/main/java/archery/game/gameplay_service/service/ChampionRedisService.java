@@ -4,6 +4,8 @@ import archery.game.gameplay_service.entity.Champion;
 import archery.game.gameplay_service.repository.ChampionRedisRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ChampionRedisService {
     public final ChampionRedisRepository championRedisRepository;
@@ -16,7 +18,7 @@ public class ChampionRedisService {
         this.deleteAll();
     }
 
-    public void saveAll(Iterable<Champion> champions) {
+    public void saveAll(List<Champion> champions) {
         championRedisRepository.saveAll(champions);
     }
 

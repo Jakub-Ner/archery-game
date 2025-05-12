@@ -23,8 +23,8 @@ public class GameUpdateRes {
                         champion.getY(),
                         champion.getImageCoordX(),
                         champion.getImageCoordY(),
-                        champion.getLevel(),
-                        champion.getExperience(),
+                        champion.getLvl(),
+                        champion.getCurrentExperience(),
                         champion.getDirection()
                 ))
                 .forEach(playerUpdate -> players.add(playerUpdate));
@@ -60,7 +60,7 @@ public class GameUpdateRes {
         public Hp hp;
         public Coords coords;
         public Coords imageCoords;
-        public int level;
+        public int lvl;
         public float experience;
         public Direction currentDirection;
 
@@ -68,7 +68,7 @@ public class GameUpdateRes {
                             int currentHp, int fullHp,
                             int x, int y,
                             int imageX, int imageY,
-                            int level, float experience,
+                            int lvl, float experience,
                             Direction currentDirection) {
             this.championId = championId;
             this.name = name;
@@ -76,7 +76,7 @@ public class GameUpdateRes {
             this.hp = new Hp(currentHp, fullHp);
             this.coords = new Coords(x, y);
             this.imageCoords = new Coords(imageX, imageY);
-            this.level = level;
+            this.lvl = lvl;
             this.experience = experience;
             this.currentDirection = currentDirection;
         }
