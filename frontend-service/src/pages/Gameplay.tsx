@@ -43,7 +43,7 @@ export default function Gameplay() {
       WSClient.get().subscribe(WS_SUB_PLAYER_POSITION_ROUTE, (message) => {
         const data = JSON.parse(message.body);
 
-        // console.log("Received message: ", data);
+        console.log("Received message: ", data);
         const newPlayer = player.findYourself(data.players);
 
         if (newPlayer.lvl !== player.lvl) {
@@ -75,8 +75,15 @@ export default function Gameplay() {
   if (!playerState) return <div>Loading player...</div>;
 
   return (
-    <div>
-      <h1>Gameplay view</h1>
+    <div
+      style={{
+        backgroundImage: 'url("/map.png")',
+        top: '0',
+        left: '0',
+        width: '960px',
+        height: '640px'
+      }}
+    >  <h1>Gameplay view</h1>
       {champions.map((playerState, index) => (
         <ChampionComponent key={index} champion={playerState} />
       ))}
