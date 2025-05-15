@@ -12,41 +12,47 @@ const PopupActionMenu: React.FC<PopupActionMenuProps> = ({
   onRun,
 }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
-      <div className="bg-gray-800 text-white p-6 rounded-2xl shadow-xl w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4 text-center">Wybierz akcję</h2>
-        <div className="flex justify-between items-end space-x-4">
-          {/* Każda kolumna zawiera napis + przycisk */}
-          <div className="flex flex-col items-center">
-            <span className="mb-2">ATT</span>
-            <button
-              onClick={onAttack}
-              className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-xl shadow"
-            >
-              ⚔️
-            </button>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="mb-2">DEF</span>
-            <button
-              onClick={onDefend}
-              className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl shadow"
-            >
-              🛡️
-            </button>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="mb-2">SPD</span>
-            <button
-              onClick={onRun}
-              className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-xl shadow"
-            >
-              🏃
-            </button>
-          </div>
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+    <div className="bg-gray-800 text-white p-6 rounded-2xl shadow-2xl w-full max-w-md border-4 border-gray-700">
+      <h2 className="text-2xl font-bold text-center mb-1">Level up!</h2>
+      <p className="text-center mb-6 text-sm text-gray-300">Choose one stat!</p>
+
+      <div className="flex justify-between items-center space-x-4">
+        {/* ATT */}
+        <div className="flex flex-col items-center bg-gray-700 p-4 rounded-xl shadow-inner w-full">
+          <span className="text-3xl mb-2">⚔️</span>
+          <button
+            onClick={onAttack}
+            className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-full shadow text-white font-semibold"
+          >
+            ATT
+          </button>
+        </div>
+
+        {/* DEF */}
+        <div className="flex flex-col items-center bg-gray-700 p-4 rounded-xl shadow-inner w-full">
+          <span className="text-3xl mb-2">🛡️</span>
+          <button
+            onClick={onDefend}
+            className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full shadow text-white font-semibold"
+          >
+            DEF
+          </button>
+        </div>
+
+        {/* SPD */}
+        <div className="flex flex-col items-center bg-gray-700 p-4 rounded-xl shadow-inner w-full">
+          <span className="text-3xl mb-2">🏃</span>
+          <button
+            onClick={onRun}
+            className="bg-yellow-500 hover:bg-yellow-600 px-6 py-2 rounded-full shadow text-white font-semibold"
+          >
+            SPD
+          </button>
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
