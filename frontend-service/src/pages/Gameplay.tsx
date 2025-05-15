@@ -5,6 +5,8 @@ import { PLAYER_COORDS, INITIAL_PLAYER_HP, PLAYER_IMAGE_COORDS, WS_SUB_PLAYER_PO
 import { WSClient } from "@/utils/WSClient";
 import { ChampionComponent } from "@/components/ui/champion.tsx";
 import { useUserData } from "@/hooks/useUserData.ts";
+import ExitButton from "@/components/ui/exitButton";
+
 
 export default function Gameplay() {
   const userId = localStorage.getItem("userId") || "1"; // default to 1 just for testing
@@ -84,11 +86,12 @@ export default function Gameplay() {
         height: '640px'
       }}
     >  <h1>Gameplay view</h1>
+    <div>
+      <ExitButton />
+      <h1>Gameplay view</h1>
       {champions.map((playerState, index) => (
         <ChampionComponent key={index} champion={playerState} />
       ))}
-
-
     </div>
   );
 }
