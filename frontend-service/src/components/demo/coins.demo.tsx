@@ -1,5 +1,17 @@
 import { Card, CardContent } from "../ui/card.tsx"; // Importujemy Card i CardContent
+import {useNavigate} from "react-router-dom";
+
 export default function CoinsDemo() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("userId");
+
+    navigate("/login");
+  };
+
     return (
       <div className="space-y-6">
         {/* Karta z monetami */}
@@ -39,10 +51,7 @@ export default function CoinsDemo() {
             <div className="flex justify-center w-full">
               <button
                 className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-                onClick={() => {
-                  // Tutaj dodaj logikę wylogowania
-                  alert('Logged out (implement logic later)');
-                }}
+                onClick={handleLogout}
               >
                 Log out
               </button>

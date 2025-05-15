@@ -8,6 +8,9 @@ export class KeyboardManager {
     public onArrowLeft: () => void,
     public onArrowUp: () => void,
     public onArrowDown: () => void,
+    // public onQ: () => void,
+    // public onW: () => void,
+    // public onE: () => void,
   ) { }
   state: boolean = false;
 
@@ -36,6 +39,11 @@ export class KeyboardManager {
         case 'ArrowDown':
           this.onArrowDown()
           break;
+
+          // case 'q':
+          //   this.onQ()
+          // break;
+          //
 
       }
     });

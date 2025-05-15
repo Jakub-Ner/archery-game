@@ -35,4 +35,9 @@ public class SkinController {
     public List<Skin> getAllSkinByUserId(@PathVariable Integer userId) {
         return skinService.getAllSkinsByUserId(userId);
     }
+
+    @GetMapping("/selected/{userId}")
+    public Skin getSelectedSkinByUserId(@PathVariable Integer userId) {
+        return skinService.getSelectedSkinByUserId(userId);
+    }
 }
