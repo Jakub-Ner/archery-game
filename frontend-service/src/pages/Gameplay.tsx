@@ -1,129 +1,94 @@
 import { KeyboardManager } from "@/logic/keyboardManager";
 import { Champion, HP } from "@/logic/champion";
 import { useEffect, useState } from "react";
-import { PLAYER_COORDS, INITIAL_PLAYER_HP, PLAYER_IMAGE_COORDS } from "@/consts";
+import { PLAYER_COORDS, INITIAL_PLAYER_HP, PLAYER_IMAGE_COORDS, WS_SUB_PLAYER_POSITION_ROUTE } from "@/consts";
 import { WSClient } from "@/utils/WSClient";
-import {ChampionComponent} from "@/components/ui/champion.tsx";
-import {useUserData} from "@/hooks/useUserData.ts";
-import defaultSkin from "../../public/assets/skins/pretty-woman.png"
+import { ChampionComponent } from "@/components/ui/champion.tsx";
+import { useUserData } from "@/hooks/useUserData.ts";
 
 export default function Gameplay() {
-    const userId = localStorage.getItem("userId") || "";
-    const { user } = useUserData(Number(userId));
+  const userId = localStorage.getItem("userId") || "1"; // default to 1 just for testing
+  const { user } = useUserData(Number(userId));
 
-    const [player, setPlayer] = useState<Champion | null>(null);
-    const [playerState, setPlayerState] = useState<Champion | null>(null);
+  const [player, setPlayer] = useState<Champion | null>(null);
+  const [playerState, setPlayerState] = useState<Champion | null>(null);
+  const [champions, setChampions] = useState<Champion[]>([]);
 
-    useEffect(() => {
-        if (user) {
-            const newPlayer = new Champion(
-                userId,
-                user.nickname || "default_nickname",
-                user.selectedSkin?.imageUrl || defaultSkin,
-                new HP(INITIAL_PLAYER_HP),
-                PLAYER_COORDS,
-                PLAYER_IMAGE_COORDS,
-            );
-            setPlayer(newPlayer);
-            setPlayerState({ ...newPlayer });
+  useEffect(() => {
+    if (user) {
+      const newPlayer = new Champion(
+        userId,
+        user.nickname || "default_nickname",
+        user.selectedSkin?.imageUrl || "/assets/skins/pretty-woman.png",
+        new HP(INITIAL_PLAYER_HP),
+        PLAYER_COORDS,
+        PLAYER_IMAGE_COORDS,
+      );
+      setPlayer(newPlayer);
+      setPlayerState({ ...newPlayer });
+    }
+  }, [user]);
+
+  const stateUpdater = (playerMovement: () => void) => {
+    if (!player) return;
+    playerMovement();
+  };
+
+  useEffect(() => {
+    if (!player) return;
+
+    WSClient.get().onConnect(() => {
+      player.connect();
+
+      WSClient.get().subscribe(WS_SUB_PLAYER_POSITION_ROUTE, (message) => {
+        const data = JSON.parse(message.body);
+
+        console.log("Received message: ", data);
+        const newPlayer = player.findYourself(data.players);
+
+        if (newPlayer.lvl !== player.lvl) {
+          console.log("Level up!");
         }
-    }, [user]);
+        setChampions(data.players);
+        setPlayerState({ ...newPlayer });
+      });
+    });
 
-    const stateUpdater = (playerMovement: () => void) => {
-        if (!player) return;
-        playerMovement();
-        setPlayerState({ ...player });
-    };
-
-    useEffect(() => {
-        if (!player) return;
-
-        WSClient.get().onConnect(() => {
-            player.connect(setPlayerState);
-        });
-
-        WSClient.get().activate();
-        const keysManager = new KeyboardManager(
-            () => stateUpdater(player.goRight.bind(player)),
-            () => stateUpdater(player.goLeft.bind(player)),
-            () => stateUpdater(player.goUp.bind(player)),
-            () => stateUpdater(player.goDown.bind(player)),
-        );
-        keysManager.startListening();
-
-        return () => {
-            keysManager.stopListening();
-            WSClient.get().stop();
-        };
-    }, [player]);
-
-    if (!playerState) return <div>Loading player...</div>;
-
-    return (
-        <div>
-            <h1>Gameplay view</h1>
-            <ChampionComponent champion={playerState} />
-        </div>
+    WSClient.get().activate();
+    const keysManager = new KeyboardManager(
+      () => stateUpdater(player.goRight.bind(player)),
+      () => stateUpdater(player.goLeft.bind(player)),
+      () => stateUpdater(player.goUp.bind(player)),
+      () => stateUpdater(player.goDown.bind(player)),
+      // () => onOptionQ(),
+      // () => onOptionW(),
+      // () => onOptionE(),
     );
+    keysManager.startListening();
+
+    return () => {
+      keysManager.stopListening();
+      WSClient.get().stop();
+    };
+  }, [player]);
+
+  if (!playerState) return <div>Loading player...</div>;
+
+  return (
+    <div
+      style={{
+        backgroundImage: 'url("/map.png")',
+        top: '0',
+        left: '0',
+        width: '960px',
+        height: '640px'
+      }}
+    >  <h1>Gameplay view</h1>
+      {champions.map((playerState, index) => (
+        <ChampionComponent key={index} champion={playerState} />
+      ))}
+
+
+    </div>
+  );
 }
-
-
-//
-// export default function Gameplay() {
-//     const userId = localStorage.getItem("userId") || "";
-//
-//     const { user } = useUserData(Number(userId));
-//
-//     console.log(userId);
-//     console.log(user?.nickname);
-//     console.log(user?.selectedSkin?.imageUrl);
-//     console.log(user);
-//
-//     let player;
-//     useEffect(() => {
-//         if (user?.selectedSkin?.imageUrl) {
-//             player = new Champion(
-//                 userId,
-//                 user?.nickname || "default_nickname",
-//                 user?.selectedSkin?.imageUrl,
-//                 new HP(INITIAL_PLAYER_HP),
-//                 PLAYER_COORDS,
-//                 PLAYER_IMAGE_COORDS,
-//             );
-//         }
-//     }, [user]);
-//     const [playerState, setPlayerState] = useState(player)
-//
-//     const stateUpdater = (playerMovement: () => void) => {
-//         playerMovement()
-//         setPlayerState({ ...playerState })
-//     }
-//
-//
-//     useEffect(() => {
-//         WSClient.get().onConnect(() => {
-//             player.connect(setPlayerState);
-//         });
-//
-//         WSClient.get().activate()
-//         const keysManager = new KeyboardManager(
-//             () => stateUpdater(player.goRight.bind(player)),
-//             () => stateUpdater(player.goLeft.bind(player)),
-//             () => stateUpdater(player.goUp.bind(player)),
-//             () => stateUpdater(player.goDown.bind(player)),
-//         )
-//         keysManager.startListening()
-//         return () => {
-//             keysManager.stopListening();
-//             WSClient.get().stop()
-//         }
-//         // eslint-disable-next-line react-hooks/exhaustive-deps
-//     }, []);
-//
-//     return (
-//         <div>
-//             <h1>Gameplay view</h1 >
-//             <ChampionComponent champion={playerState} />
-//         </div>
-//     )
-// }

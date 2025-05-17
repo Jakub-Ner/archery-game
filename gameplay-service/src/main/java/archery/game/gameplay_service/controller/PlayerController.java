@@ -5,7 +5,7 @@ import archery.game.gameplay_service.dto.PlayerDirectionReq;
 import archery.game.gameplay_service.dto.PlayerInitReq;
 import archery.game.gameplay_service.entity.Champion;
 import archery.game.gameplay_service.service.ChampionRedisService;
-import archery.game.gameplay_service.service.PlayerDirectionService;
+import archery.game.gameplay_service.service.PlayerPositionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.Header;
@@ -17,12 +17,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @Controller
 public class PlayerController {
     private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
-    private final PlayerDirectionService playerDirectionService;
+    private final PlayerPositionService playerPositionService;
     private final ChampionRedisService championRedisService;
 
     // TODO move cron to a service
@@ -31,11 +32,11 @@ public class PlayerController {
     private int timeCounter = 0;
 
     public PlayerController(
-            PlayerDirectionService playerDirectionService,
+            PlayerPositionService playerPositionService,
             ChampionRedisService championRedisService,
             SimpMessagingTemplate messagingTemplate
     ) {
-        this.playerDirectionService = playerDirectionService;
+        this.playerPositionService = playerPositionService;
         this.championRedisService = championRedisService;
         this.messagingTemplate = messagingTemplate;
         logger.info("PlayerController initialized");
@@ -47,22 +48,25 @@ public class PlayerController {
     public void broadcastPlayerUpdate() {
         timeCounter++;
         timeCounter %= 1000;
-        var champions = this.championRedisService.findAll();
+        var champions = (List<Champion>)this.championRedisService.findAll();
+        champions.removeIf(Objects::isNull);
 
         for (Champion champion : champions) {
+            champion.addExperience(Champion.CONST_EXPERIENCE_GAIN);
             if (timeCounter % (1000 / champion.getMovementSpeed()) == 0) {
-                playerDirectionService.updatePosition(champion);
+                playerPositionService.updatePosition(champion);
             }
         }
+//        this.playerPositionService.resolveCollisionAndUpdateStates(champions, arrows);
         this.championRedisService.saveAll(champions);
-        var dto = new GameUpdateRes((List<Champion>) champions);
+        var dto = new GameUpdateRes(champions);
         messagingTemplate.convertAndSend("/topic/player/position", dto);
     }
 
     @MessageMapping("/player/direction")
     public void updateDirection(@Header("simpSessionId") String sessionId, PlayerDirectionReq req) {
         Champion player = championRedisService.findById(sessionId);
-        playerDirectionService.updateDirection(player, req.newDirection);
+        playerPositionService.updateDirection(player, req.newDirection);
         logger.info("Current player direction: {}", req.newDirection);
     }
 
