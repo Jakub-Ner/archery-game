@@ -6,7 +6,7 @@ import { WSClient } from "@/utils/WSClient";
 import { ChampionComponent } from "@/components/ui/champion.tsx";
 import { useUserData } from "@/hooks/useUserData.ts";
 import PopupActionMenu from "@/components/ui/popup.tsx";
-
+import ExitButton from "@/components/ui/exitButton";
 
 
 export default function Gameplay() {
@@ -60,7 +60,7 @@ export default function Gameplay() {
       WSClient.get().subscribe(WS_SUB_PLAYER_POSITION_ROUTE, (message) => {
         const data = JSON.parse(message.body);
 
-        // console.log("Received message: ", data);
+        console.log("Received message: ", data);
         const newPlayer = player.findYourself(data.players);
 
         if (newPlayer.lvl !== player.lvl) {
@@ -93,7 +93,16 @@ export default function Gameplay() {
   if (!playerState) return <div>Loading player...</div>;
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: 'url("/map.png")',
+        top: '0',
+        left: '0',
+        width: '960px',
+        height: '640px'
+      }}
+    >
+      <ExitButton />
       <h1>Gameplay view</h1>
       {/* Popup wyświetlany, jeśli showPopup === true */}
       {showPopup && (
@@ -106,8 +115,6 @@ export default function Gameplay() {
       {champions.map((playerState, index) => (
         <ChampionComponent key={index} champion={playerState} />
       ))}
-
-
     </div>
   );
 }

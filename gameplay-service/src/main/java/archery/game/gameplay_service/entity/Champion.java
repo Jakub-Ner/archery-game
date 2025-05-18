@@ -18,9 +18,9 @@ public class Champion {
     public static final int DEFAULT_ATTACK_SPEED = 1;
     public static final int DEFAULT_ATTACK_RANGE = 100;
     public static final int DEFAULT_MOVEMENT_SPEED = 200; //will be changing
-    public static final int DEFAULT_MOVEMENT_SIZE = 50; //stay constant
-    public static final int DEFAULT_X = 50;
-    public static final int DEFAULT_Y = 50;
+    public static final int DEFAULT_MOVEMENT_SIZE = 32; //stay constant
+    public static final int DEFAULT_X = DEFAULT_MOVEMENT_SIZE;
+    public static final int DEFAULT_Y = DEFAULT_MOVEMENT_SIZE;
     public int imageCoordX;
     public int imageCoordY;
     @Id

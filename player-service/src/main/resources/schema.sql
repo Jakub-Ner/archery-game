@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "users" (
   "email" varchar UNIQUE NOT NULL,
   "password_hash" varchar NOT NULL,
   "role" varchar NOT NULL,
-  "gems" integer NOT NULL DEFAULT 0
+  "gems" integer NOT NULL DEFAULT 1000
 );
 
 CREATE TABLE IF NOT EXISTS "skins" (
