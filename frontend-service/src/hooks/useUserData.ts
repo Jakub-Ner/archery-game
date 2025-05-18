@@ -16,7 +16,7 @@ type UserData = {
   unownedSkins: Skin[];
 };
 
-export function useUserData(userId: number | null) {
+export function useUserData(userId: number | null, refreshKey?: number) {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -59,7 +59,7 @@ export function useUserData(userId: number | null) {
     }
 
     fetchData();
-  }, [userId]);
+  }, [userId, refreshKey]);
 
   return { user, loading };
 }
