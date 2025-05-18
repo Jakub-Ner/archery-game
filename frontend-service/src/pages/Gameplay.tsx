@@ -5,6 +5,7 @@ import { PLAYER_COORDS, INITIAL_PLAYER_HP, PLAYER_IMAGE_COORDS, WS_SUB_PLAYER_PO
 import { WSClient } from "@/utils/WSClient";
 import { ChampionComponent } from "@/components/ui/champion.tsx";
 import { useUserData } from "@/hooks/useUserData.ts";
+import PopupActionMenu from "@/components/ui/popup.tsx";
 import ExitButton from "@/components/ui/exitButton";
 
 
@@ -15,6 +16,20 @@ export default function Gameplay() {
   const [player, setPlayer] = useState<Champion | null>(null);
   const [playerState, setPlayerState] = useState<Champion | null>(null);
   const [champions, setChampions] = useState<Champion[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const onOptionQ = () => {
+    console.log("Q pressed → Attack");
+    setShowPopup(false);
+  };
+  const onOptionW = () => {
+    console.log("W pressed → Defend");
+    setShowPopup(false);
+  };
+  const onOptionE = () => {
+    console.log("E pressed → Run");
+    setShowPopup(false);
+  };
 
   useEffect(() => {
     if (user) {
@@ -50,6 +65,7 @@ export default function Gameplay() {
 
         if (newPlayer.lvl !== player.lvl) {
           console.log("Level up!");
+          setShowPopup(true) //ma pokazywac popup
         }
         setChampions(data.players);
         setPlayerState({ ...newPlayer });
@@ -62,9 +78,9 @@ export default function Gameplay() {
       () => stateUpdater(player.goLeft.bind(player)),
       () => stateUpdater(player.goUp.bind(player)),
       () => stateUpdater(player.goDown.bind(player)),
-      // () => onOptionQ(),
-      // () => onOptionW(),
-      // () => onOptionE(),
+      () => onOptionQ(),
+      () => onOptionW(),
+      () => onOptionE()
     );
     keysManager.startListening();
 
@@ -88,6 +104,14 @@ export default function Gameplay() {
     >
       <ExitButton />
       <h1>Gameplay view</h1>
+      {/* Popup wyświetlany, jeśli showPopup === true */}
+      {showPopup && (
+        <PopupActionMenu
+          onAttack={onOptionQ}
+          onDefend={onOptionW}
+          onRun={onOptionE}
+        />
+      )}
       {champions.map((playerState, index) => (
         <ChampionComponent key={index} champion={playerState} />
       ))}
