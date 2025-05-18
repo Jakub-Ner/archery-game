@@ -15,7 +15,7 @@ export default function CoinsDemo() {
 
   return (
     <div className="space-y-6">
-      <Card className="w-full max-w-sm bg-white shadow-lg p-6 rounded-2xl">
+      <Card className="w-full max-w-sm bg-white shadow-lg p-6 rounded-2xl mb-2">
         <CardContent className="flex flex-col items-center gap-4">
           <p className="text-xl font-semibold text-gray-800">Coins</p>
           <p className="text-3xl font-bold text-yellow-500 mt-2">
@@ -34,14 +34,14 @@ export default function CoinsDemo() {
         </CardContent>
       </Card>
 
-      <Card className="w-full max-w-sm bg-white shadow-lg p-5 rounded-2xl">
+      <Card className="w-full max-w-sm bg-white shadow-lg p-5 rounded-2xl mb-2">
         <CardContent className="flex flex-col items-center gap-6">
           <p className="text-xl font-semibold text-gray-800">Settings</p>
           <div className="space-y-3 text-center text-gray-700 w-full">
-            <button className="w-full py-2 px-4 bg-gray-200 rounded-md hover:bg-gray-300">
+            <button className="w-full py-2 px-4 bg-gray-200 rounded-md hover:bg-gray-300 mb-2">
               Your Data
             </button>
-            <button className="w-full py-2 px-4 bg-gray-200 rounded-md hover:bg-gray-300">
+            <button className="w-full py-2 px-4 bg-gray-200 rounded-md hover:bg-gray-300 mb-2">
               Toggle Sound
             </button>
           </div>
