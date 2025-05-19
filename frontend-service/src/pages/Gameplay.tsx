@@ -85,8 +85,7 @@ export default function Gameplay() {
         width: '960px',
         height: '640px'
       }}
-    >  <h1>Gameplay view</h1>
-    <div>
+    >
       <ExitButton />
       <h1>Gameplay view</h1>
       {champions.map((playerState, index) => (
