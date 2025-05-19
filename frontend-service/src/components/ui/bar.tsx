@@ -1,3 +1,4 @@
+
 interface BarProps {
     currentValue: number;
     maxValue: number;
@@ -7,6 +8,7 @@ interface BarProps {
     barWidth?: number;
     barHeight?: number;
     labelSize?: number;
+    minWidth?: number;
 }
 
 export default function Bar({ 
@@ -17,9 +19,20 @@ export default function Bar({
     labelColor = "bg-red-600",
     barWidth = 34,
     barHeight = 4,
-    labelSize = 4
+    labelSize = 4,
+    minWidth = 1
 }: BarProps) {
     const currentPercentage = (currentValue / maxValue) * 100;
+    
+    const calculateWidth = () => {
+        if (currentValue === 0) return 0;
+        
+        const pixelWidth = (currentPercentage / 100) * barWidth;
+        
+        return pixelWidth < minWidth && currentValue > 0 
+            ? `${minWidth}px` 
+            : `${currentPercentage}%`;
+    };
 
     const barColor = () => {
         if (computeBarColor) {
@@ -45,13 +58,13 @@ export default function Bar({
                 </div>
             )}
             <div 
-                className="relative bg-black rounded-sm"
+                className="relative bg-black rounded-sm overflow-hidden"
                 style={{ 
                     width: `${barWidth}px`,
                     height: `${barHeight}px`
                 }}
             >
-                {currentPercentage === 0 ? (
+                {currentValue === 0 ? (
                     <div 
                         className="absolute flex justify-center w-full h-full items-center text-white"
                         style={{ fontSize: `${Math.max(4, barHeight * 0.7)}px` }}
@@ -60,9 +73,9 @@ export default function Bar({
                     </div>
                 ) : (
                     <div
-                        className={`${barColor()} absolute rounded-sm flex justify-center items-center text-white`}
+                        className={`${barColor()} absolute rounded-sm flex justify-center items-center text-white transition-all duration-300 ease-out`}
                         style={{ 
-                            width: `${currentPercentage}%`, 
+                            width: calculateWidth(), 
                             height: `${barHeight}px`,
                             fontSize: `${Math.max(6, barHeight * 0.7)}px`
                         }}
