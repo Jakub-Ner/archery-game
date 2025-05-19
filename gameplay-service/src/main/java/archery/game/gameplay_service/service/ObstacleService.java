@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 @Service
 public class ObstacleService {
-    public final int TILE_SIZE = 32;
+    public static final int TILE_SIZE = 32;
     public final int COLS = 960 / TILE_SIZE;
     public final int ROWS = 640 / TILE_SIZE;
     private final boolean[][] obstaclesMap = new boolean[ROWS][COLS];

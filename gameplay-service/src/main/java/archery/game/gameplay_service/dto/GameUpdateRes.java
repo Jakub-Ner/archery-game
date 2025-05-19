@@ -1,5 +1,6 @@
 package archery.game.gameplay_service.dto;
 
+import archery.game.gameplay_service.entity.Arrow;
 import archery.game.gameplay_service.entity.Champion;
 import archery.game.gameplay_service.entity.Direction;
 import lombok.Data;
@@ -8,11 +9,12 @@ import java.util.List;
 
 @Data
 public class GameUpdateRes {
-    List<PlayerUpdate> players;
+    PlayerUpdate[] players;
+    Arrow[] arrows;
 
-    public GameUpdateRes(List<Champion> champions) {
-        this.players = new java.util.ArrayList<>();
-        champions.stream()
+    public GameUpdateRes(List<Champion> champions, Arrow[] arrows) {
+        this.arrows = arrows;
+        this.players = champions.stream()
                 .map(champion -> new PlayerUpdate(
                         champion.getChampionId(),
                         champion.getName(),
@@ -26,8 +28,7 @@ public class GameUpdateRes {
                         champion.getLvl(),
                         champion.getCurrentExperience(),
                         champion.getDirection()
-                ))
-                .forEach(playerUpdate -> players.add(playerUpdate));
+                )).toArray(PlayerUpdate[]::new);
     }
 
     @Data

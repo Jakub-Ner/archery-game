@@ -1,4 +1,4 @@
-import { /*MOVEMENT_STEP,*/ WS_PUBLISH_DIRECTION_ROUTE, /*WS_SUB_PLAYER_POSITION_ROUTE,*/ WS_PUBLISH_POSITION_INITIALIZE } from "@/consts";
+import { WS_PUBLISH_DIRECTION_ROUTE, WS_PUBLISH_POSITION_INITIALIZE, WS_PUBLISH_SHOOT_ROUTE } from "@/consts";
 import { Coords } from "./common";
 import { WSClient } from "@/utils/WSClient";
 
@@ -48,6 +48,11 @@ export class Champion {
     WSClient.get().send(WS_PUBLISH_DIRECTION_ROUTE, ({
       newDirection: this.currentDirection,
     }));
+  }
+
+  public shoot = () => {
+    WSClient.get().send(WS_PUBLISH_SHOOT_ROUTE, {});
+
   }
 
   public goRight = () => {

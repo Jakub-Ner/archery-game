@@ -14,6 +14,8 @@ export const WS_SUB_PLAYER_POSITION_ROUTE = '/topic/player/position'
 
 export const WS_PUBLISH_DIRECTION_ROUTE = '/app/player/direction'
 
+export const WS_PUBLISH_SHOOT_ROUTE = '/app/player/shoot'
+
 export const WS_PUBLISH_POSITION_INITIALIZE = '/app/player/position/initialize'
 
 // GENERAL

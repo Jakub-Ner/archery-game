@@ -14,13 +14,17 @@ public class Champion {
 
     public static final int DEFAULT_CURRENT_HEALTH = 100;
     public static final int DEFAULT_MAX_HEALTH = 100;
+
     public static final int DEFAULT_ATTACK_DAMAGE = 10;
-    public static final int DEFAULT_ATTACK_SPEED = 1;
+    public static final int BASE_ATTACK_DELAY = 50; // N frames
+    public static final int DEFAULT_ATTACK_SPEED = 10; // user can shoot one time every 10 frames
     public static final int DEFAULT_ATTACK_RANGE = 100;
+
     public static final int DEFAULT_MOVEMENT_SPEED = 200; //will be changing
     public static final int DEFAULT_MOVEMENT_SIZE = 32; //stay constant
     public static final int DEFAULT_X = DEFAULT_MOVEMENT_SIZE;
     public static final int DEFAULT_Y = DEFAULT_MOVEMENT_SIZE;
+
     public int imageCoordX;
     public int imageCoordY;
     @Id
@@ -40,10 +44,11 @@ public class Champion {
 
 
     private Direction direction;
+    private int movementSpeed;
     private int attackDamage;
     private int attackSpeed;
+    private int timeToNextAttack;
     private int attackRange;
-    private int movementSpeed;
 
     public Champion(String sessionId, String championId, String name, String skinPath) {
         this.sessionId = sessionId;
@@ -60,6 +65,7 @@ public class Champion {
 
         attackDamage = DEFAULT_ATTACK_DAMAGE;
         attackSpeed = DEFAULT_ATTACK_SPEED;
+        timeToNextAttack = 0;
         attackRange = DEFAULT_ATTACK_RANGE;
 
         movementSpeed = DEFAULT_MOVEMENT_SPEED;
@@ -67,6 +73,12 @@ public class Champion {
         x = DEFAULT_X;
         y = DEFAULT_Y;
         direction = Direction.NONE;
+    }
+
+    public void updateTimeToNextAttack() {
+        if (timeToNextAttack > 0) {
+            timeToNextAttack -= attackSpeed;
+        }
     }
 
     private int getExperienceForNextLvl(int currentlvl) {
@@ -83,10 +95,10 @@ public class Champion {
     }
 
     private void upgradeChampionStats() {
-//            maxHealth += 10;
-//            attackDamage += 5;
-//            attackSpeed += 1;
-//            attackRange += 1;
-//            movementSpeed += 5;
+        maxHealth += 10;
+        attackDamage += 5;
+        attackSpeed += 5;
+        attackRange += 1;
+        movementSpeed += 5;
     }
 }

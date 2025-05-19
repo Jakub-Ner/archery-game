@@ -4,6 +4,7 @@ import archery.game.gameplay_service.dto.GameUpdateRes;
 import archery.game.gameplay_service.dto.PlayerDirectionReq;
 import archery.game.gameplay_service.dto.PlayerInitReq;
 import archery.game.gameplay_service.entity.Champion;
+import archery.game.gameplay_service.service.ArrowService;
 import archery.game.gameplay_service.service.ChampionRedisService;
 import archery.game.gameplay_service.service.PlayerPositionService;
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ public class PlayerController {
     private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
     private final PlayerPositionService playerPositionService;
     private final ChampionRedisService championRedisService;
+    private final ArrowService arrowService;
 
     // TODO move cron to a service
     private final SimpMessagingTemplate messagingTemplate;
@@ -33,11 +35,12 @@ public class PlayerController {
 
     public PlayerController(
             PlayerPositionService playerPositionService,
-            ChampionRedisService championRedisService,
+            ChampionRedisService championRedisService, ArrowService arrowService,
             SimpMessagingTemplate messagingTemplate
     ) {
         this.playerPositionService = playerPositionService;
         this.championRedisService = championRedisService;
+        this.arrowService = arrowService;
         this.messagingTemplate = messagingTemplate;
         logger.info("PlayerController initialized");
     }
@@ -55,19 +58,28 @@ public class PlayerController {
             champion.addExperience(Champion.CONST_EXPERIENCE_GAIN);
             if (timeCounter % (1000 / champion.getMovementSpeed()) == 0) {
                 playerPositionService.updatePosition(champion);
+                champion.updateTimeToNextAttack();
             }
         }
 //        this.playerPositionService.resolveCollisionAndUpdateStates(champions, arrows);
+        this.arrowService.UpdateArrows();
+
         this.championRedisService.saveAll(champions);
-        var dto = new GameUpdateRes(champions);
+        var dto = new GameUpdateRes(champions, this.arrowService.getArrowsAsArray());
         messagingTemplate.convertAndSend("/topic/player/position", dto);
     }
 
     @MessageMapping("/player/direction")
     public void updateDirection(@Header("simpSessionId") String sessionId, PlayerDirectionReq req) {
         Champion player = championRedisService.findById(sessionId);
+        if (player == null) return;
         playerPositionService.updateDirection(player, req.newDirection);
         logger.info("Current player direction: {}", req.newDirection);
+    }
+
+    @MessageMapping("/player/shoot")
+    public void shoot(@Header("simpSessionId") String sessionId) {
+        arrowService.shoot(sessionId);
     }
 
     @MessageMapping("/player/position/initialize")
