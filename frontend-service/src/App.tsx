@@ -1,5 +1,5 @@
 import './App.css'
-import {BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MainMenu from "./pages/MainMenu"
@@ -15,14 +15,14 @@ function App() {
             <Routes>
                 {/* Publiczne trasy */}
                 <Route path="/" element={<Navigate to="/login" replace />} />
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
                 {/* Prywatne trasy */}
-                { /* <Route element={<PrivateRoute/>}> */}
-                    <Route path="/menu" element={<MainMenu/>}/>
-                    <Route path="/gameplay" element={<Gameplay/>}/>
-                    {/*  </Route> */}
+                <Route element={<PrivateRoute />}>
+                    <Route path="/menu" element={<MainMenu />} />
+                    <Route path="/gameplay" element={<Gameplay />} />
+                </Route>
             </Routes>
         </Router>
     );

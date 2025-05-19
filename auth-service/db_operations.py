@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 async def insert_user(nickname: str, email: str, hashed_password: str, db: Connection) -> int:
     try:
         row = await db.fetchrow(
-            "INSERT INTO users (nickname, email, password_hash, role, gems) VALUES ($1, $2, $3, 'USER', 1000) RETURNING id;",
+            "INSERT INTO users (nickname, email, password_hash, role) VALUES ($1, $2, $3, 'USER') RETURNING id;",
             nickname, email, hashed_password
         )
         return row["id"]
