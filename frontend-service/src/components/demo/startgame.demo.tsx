@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 export default function StartGame() {
   const navigate = useNavigate();
 
+  if (window.innerWidth <= 768){
+      return (<> </>);
+  }
+
   const handleStartGame = () => {
     // Później tutaj możesz np. wywołać API do rozpoczęcia gry
     navigate('/gameplay');
@@ -15,3 +19,4 @@ export default function StartGame() {
     </Button>
   );
 }
+
