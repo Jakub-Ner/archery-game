@@ -2,9 +2,11 @@ package com.game.player_service.controller;
 
 import com.game.player_service.entity.Skin;
 import com.game.player_service.service.SkinService;
+
 import com.game.player_service.service.UserSkinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -15,8 +17,10 @@ public class SkinController {
     private final SkinService skinService;
     private final UserSkinService userSkinService;
 
+
     @Autowired
     public SkinController(SkinService skinService, UserSkinService userSkinService) {
+
         this.skinService = skinService;
 		this.userSkinService = userSkinService;
 	}

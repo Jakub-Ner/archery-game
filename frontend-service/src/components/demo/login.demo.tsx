@@ -6,8 +6,8 @@ import { AUTH_SERVICE_URL } from "@/consts";
 import { decodeToken } from "@/lib/auth";
 
 export default function LoginDemo() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 

@@ -1,11 +1,15 @@
 package com.game.player_service.repository;
 
-import com.game.player_service.entity.Skin;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 
-public interface SkinRepository extends JpaRepository<Skin, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.game.player_service.entity.Skin;
+import org.springframework.lang.NonNull;
+
+
+public interface SkinRepository extends JpaRepository<Skin, Integer> {
+@Override
+@NonNull
     List<Skin> findAll();
 }

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import SkinMatrix from '../ui/skinMatrix';
+
 import {useUserData} from '@/hooks/useUserData';
 import {useSelectSkin} from "@/hooks/useSelectSkin.ts";
 import {useBuySkin} from "@/hooks/useBuySkin.ts";
@@ -79,6 +80,7 @@ const SkinMatrixDemo: React.FC<{ onSkinBought: () => void }> = ({ onSkinBought }
 
     if (loading || !user) {
         return <div className="p-4">Ładowanie skórek...</div>;
+
     }
 
     return (

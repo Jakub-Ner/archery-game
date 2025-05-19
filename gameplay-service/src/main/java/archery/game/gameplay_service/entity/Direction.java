@@ -1,6 +1,5 @@
 package archery.game.gameplay_service.entity;
 
-import lombok.Data;
 
 public enum Direction {
     NONE("NONE"),

@@ -3,8 +3,10 @@ package com.game.player_service.service;
 import com.game.player_service.entity.*;
 import com.game.player_service.exception.SkinNotFoundException;
 import com.game.player_service.repository.UserSkinRepository;
+
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class UserSkinService {
 
     private final UserSkinRepository userSkinRepository;
 
-    @Autowired
+    
     public UserSkinService(UserSkinRepository userSkinRepository) {
         this.userSkinRepository = userSkinRepository;
     }
