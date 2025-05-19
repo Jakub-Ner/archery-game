@@ -1,4 +1,5 @@
 import { KeyboardManager } from "@/logic/keyboardManager";
+import { Arrow } from "@/logic/arrow";
 import { Champion, HP } from "@/logic/champion";
 import { useEffect, useState } from "react";
 import { PLAYER_COORDS, INITIAL_PLAYER_HP, PLAYER_IMAGE_COORDS, WS_SUB_PLAYER_POSITION_ROUTE } from "@/consts";
@@ -7,6 +8,7 @@ import { ChampionComponent } from "@/components/ui/champion.tsx";
 import { useUserData } from "@/hooks/useUserData.ts";
 import PopupActionMenu from "@/components/ui/popup.tsx";
 import ExitButton from "@/components/ui/exitButton";
+import { ArrowComponent } from "@/components/ui/arrow";
 
 
 export default function Gameplay() {
@@ -16,6 +18,7 @@ export default function Gameplay() {
   const [player, setPlayer] = useState<Champion | null>(null);
   const [playerState, setPlayerState] = useState<Champion | null>(null);
   const [champions, setChampions] = useState<Champion[]>([]);
+  const [arrows, setArrows] = useState<Arrow[]>([]);
   const [showPopup, setShowPopup] = useState(false);
 
   const onOptionQ = () => {
@@ -69,6 +72,7 @@ export default function Gameplay() {
         }
         setChampions(data.players);
         setPlayerState({ ...newPlayer });
+        setArrows(data.arrows);
       });
     });
 
@@ -78,6 +82,7 @@ export default function Gameplay() {
       () => stateUpdater(player.goLeft.bind(player)),
       () => stateUpdater(player.goUp.bind(player)),
       () => stateUpdater(player.goDown.bind(player)),
+      () => stateUpdater(player.shoot.bind(player)),
       () => onOptionQ(),
       () => onOptionW(),
       () => onOptionE()
@@ -113,6 +118,10 @@ export default function Gameplay() {
       )}
       {champions.map((playerState, index) => (
         <ChampionComponent key={index} champion={playerState} />
+      ))}
+
+      {arrows.map((arrow, index) => (
+        <ArrowComponent key={index} arrow={arrow} />
       ))}
     </div>
   );

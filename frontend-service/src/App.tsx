@@ -8,8 +8,7 @@ import MainMenu from "./pages/MainMenu"
 import Gameplay from "@/pages/Gameplay.tsx";
 // import BarDemo from './components/demo/bar.demo';
 // import ChampionDemo from './components/demo/champion.demo';
-// import PrivateRoute from "@/components/routes/PrivateRoute.tsx";
-// import PrivateRoute from "@/components/routes/PrivateRoute.tsx";
+import PrivateRoute from "@/components/routes/PrivateRoute.tsx";
 
 function App() {
     return (

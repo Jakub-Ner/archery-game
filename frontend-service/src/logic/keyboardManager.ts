@@ -8,6 +8,7 @@ export class KeyboardManager {
     public onArrowLeft: () => void,
     public onArrowUp: () => void,
     public onArrowDown: () => void,
+    public onSpace: () => void,
     public onQ: () => void,
     public onW: () => void,
     public onE: () => void,
@@ -38,6 +39,10 @@ export class KeyboardManager {
 
         case 'ArrowDown':
           this.onArrowDown()
+          break;
+  
+        case ' ':
+          this.onSpace()
           break;
 
         case 'q':

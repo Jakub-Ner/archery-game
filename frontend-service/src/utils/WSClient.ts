@@ -1,4 +1,3 @@
-
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import { HTTP_PROTOCOL, WS_PROTOCOL, WS_URL } from '@/consts';
