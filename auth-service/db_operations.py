@@ -34,7 +34,7 @@ async def assign_default_skin_to_user(user_id: int, db: Connection):
         await db.execute(
             """
             INSERT INTO user_skins (user_id, skin_id, is_selected)
-            VALUES ($1, 2, TRUE)
+            VALUES ($1, 1, TRUE)
             ON CONFLICT (user_id, skin_id) DO NOTHING;
             """,
             user_id

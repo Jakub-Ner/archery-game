@@ -2,10 +2,11 @@ package com.game.player_service.controller;
 
 import com.game.player_service.entity.Skin;
 import com.game.player_service.service.SkinService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.game.player_service.service.UserSkinService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -14,10 +15,15 @@ import java.util.List;
 public class SkinController {
 
     private final SkinService skinService;
+    private final UserSkinService userSkinService;
 
-    public SkinController(SkinService skinService) {
+
+    @Autowired
+    public SkinController(SkinService skinService, UserSkinService userSkinService) {
+
         this.skinService = skinService;
-    }
+		this.userSkinService = userSkinService;
+	}
 
     @GetMapping
     public List<Skin> getAllSkins() {
@@ -26,16 +32,29 @@ public class SkinController {
 
     @GetMapping("/unowned/{userId}")
     public List<Skin> getAllSkinsNotOwnedByUser(@PathVariable Integer userId) {
+
+        System.out.println("w /skins/unowned/{userId}");
         return skinService.getAllSkinsNotOwnedByUser(userId);
     }
 
     @GetMapping("/owned/{userId}")
     public List<Skin> getAllSkinByUserId(@PathVariable Integer userId) {
+
+        System.out.println("w /skins/owned/{userId}");
         return skinService.getAllSkinsByUserId(userId);
     }
 
     @GetMapping("/selected/{userId}")
     public Skin getSelectedSkinByUserId(@PathVariable Integer userId) {
+
+        System.out.println("w /skins/selected/{userId}");
         return skinService.getSelectedSkinByUserId(userId);
+    }
+
+    @PutMapping("/select")
+    public void selectSkin(@RequestParam Integer userId, @RequestParam Integer skinId) {
+
+        System.out.println("w /skins/select");
+        userSkinService.selectSkin(userId, skinId);
     }
 }

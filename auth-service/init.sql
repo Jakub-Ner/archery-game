@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS "users" (
     "email" VARCHAR UNIQUE NOT NULL,
     "password_hash" VARCHAR NOT NULL,
     "role" VARCHAR NOT NULL,
-    "gems" INTEGER NOT NULL DEFAULT 0
+    "gems" INTEGER NOT NULL DEFAULT 1000
 );

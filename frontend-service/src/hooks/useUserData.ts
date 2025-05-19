@@ -16,7 +16,7 @@ type UserData = {
   unownedSkins: Skin[];
 };
 
-export function useUserData(userId: number | null) {
+export function useUserData(userId: number | null, refreshKey?: number) {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,14 +32,17 @@ export function useUserData(userId: number | null) {
           fetch(`${PLAYER_SERVICE_URL}/skins/unowned/${userId}`),
         ]);
 
-        if (!userRes.ok || !selectedRes.ok || !ownedRes.ok || !unownedRes.ok) {
-          throw new Error("One or more requests failed");
-        }
+        const parseSafe = async (res: Response) => {
+          const text = await res.text();
+          return text ? JSON.parse(text) : null;
+        };
 
-        const userJson = await userRes.json();
-        const selectedSkin = await selectedRes.json();
-        const ownedSkins = await ownedRes.json();
-        const unownedSkins = await unownedRes.json();
+        if (!userRes.ok) throw new Error("User fetch failed");
+
+        const userJson = await parseSafe(userRes);
+        const selectedSkin = selectedRes.ok ? await parseSafe(selectedRes) : null;
+        const ownedSkins = ownedRes.ok ? await parseSafe(ownedRes) : [];
+        const unownedSkins = unownedRes.ok ? await parseSafe(unownedRes) : [];
 
         setUser({
           nickname: userJson.nickname,
@@ -56,33 +59,7 @@ export function useUserData(userId: number | null) {
     }
 
     fetchData();
-  }, [userId]);
+  }, [userId, refreshKey]);
 
   return { user, loading };
 }
-
-
-// import { useEffect, useState } from "react";
-// import { PLAYER_SERVICE_URL } from "@/consts";
-//
-// export function useUserData(userId: number | null) {
-//   const [user, setUser] = useState<{ c: string; gems: number } | null>(null);
-//   const [loading, setLoading] = useState(true);
-//
-//   useEffect(() => {
-//     if (!userId) return;
-//
-//     fetch(`${PLAYER_SERVICE_URL}/users/${userId}`)
-//       .then((res) => res.json())
-//       .then((json) => {
-//         setUser(json);
-//         setLoading(false);
-//       })
-//       .catch((err) => {
-//         console.error("Failed to fetch user", err);
-//         setLoading(false);
-//       });
-//   }, [userId]);
-//
-//   return { user, loading };
-// }
