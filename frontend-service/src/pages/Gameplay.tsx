@@ -65,7 +65,7 @@ export default function Gameplay() {
 
         if (newPlayer.lvl !== player.lvl) {
           console.log("Level up!");
-          setShowPopup(true) //ma pokazywac popup
+          // setShowPopup(true) //ma pokazywac popup
         }
         setChampions(data.players);
         setPlayerState({ ...newPlayer });
@@ -104,7 +104,6 @@ export default function Gameplay() {
     >
       <ExitButton />
       <h1>Gameplay view</h1>
-      {/* Popup wyświetlany, jeśli showPopup === true */}
       {showPopup && (
         <PopupActionMenu
           onAttack={onOptionQ}
