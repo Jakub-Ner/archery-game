@@ -3,8 +3,11 @@ import StatisticsDemo from "../components/demo/statistics.demo";
 import SkinMatrixDemo from "../components/demo/skinMatrix.demo";
 import CoinsDemo from "../components/demo/coins.demo";
 import UserInfo from "../components/demo/userNickname.demo";
+import {useState} from "react";
 
 export default function MainMenu() {
+    const [refreshKey, setRefreshKey] = useState(0);
+
   return (
     <div className="relative min-h-screen bg-background text-foreground flex flex-col">
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center pt-8 lg:pt-12 text-primary px-4">
@@ -20,13 +23,13 @@ export default function MainMenu() {
         {/* Środkowa kolumna */}
         <div className="flex flex-col items-center gap-2 w-full max-w-2xl">
           <UserInfo />  {/* Nasz komponent z nazwą użytkownika */}
-          <SkinMatrixDemo />
+            <SkinMatrixDemo onSkinBought={() => setRefreshKey(prev => prev + 1)} />
           <StartGame />
         </div>
 
         {/* Prawa kolumna */}
         <div className="w-full flex justify-center lg:justify-start">
-          <CoinsDemo />
+            <CoinsDemo refreshKey={refreshKey} />
         </div>
       </div>
     </div>

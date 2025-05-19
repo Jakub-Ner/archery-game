@@ -1,11 +1,11 @@
 import { Card, CardContent } from "../ui/card.tsx";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../hooks/useUser";
+import {useUserData} from "@/hooks/useUserData.ts";
 
-export default function CoinsDemo() {
+export default function CoinsDemo({ refreshKey }: { refreshKey: number }) {
   const navigate = useNavigate();
   const userId = Number(localStorage.getItem("userId"));
-  const { data: user, loading } = useUser(userId);
+  const { user, loading } = useUserData(Number(userId), refreshKey);
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");

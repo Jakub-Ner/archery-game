@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 async def insert_user(nickname: str, email: str, hashed_password: str, db: Connection) -> int:
     try:
         row = await db.fetchrow(
-            "INSERT INTO users (id, nickname, email, password_hash, role, gems) VALUES (2, $1, $2, $3, 'USER', 1000) RETURNING id;",
+            "INSERT INTO users (nickname, email, password_hash, role) VALUES ($1, $2, $3, 'USER') RETURNING id;",
             nickname, email, hashed_password
         )
         return row["id"]
@@ -34,7 +34,7 @@ async def assign_default_skin_to_user(user_id: int, db: Connection):
         await db.execute(
             """
             INSERT INTO user_skins (user_id, skin_id, is_selected)
-            VALUES ($1, 2, TRUE)
+            VALUES ($1, 1, TRUE)
             ON CONFLICT (user_id, skin_id) DO NOTHING;
             """,
             user_id

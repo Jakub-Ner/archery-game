@@ -25,4 +25,14 @@ public class UserController {
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
+
+	@PostMapping("/{userId}/buy-skin/{skinId}")
+	public ResponseEntity<String> buySkin(@PathVariable Integer userId, @PathVariable Integer skinId) {
+		try {
+			userService.buySkin(userId, skinId);
+			return ResponseEntity.ok("Zakup udany");
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }
