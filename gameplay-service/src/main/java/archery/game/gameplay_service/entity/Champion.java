@@ -50,12 +50,7 @@ public class Champion {
     private int timeToNextAttack;
     private int attackRange;
 
-    public Champion(String sessionId, String championId, String name, String skinPath) {
-        this.sessionId = sessionId;
-        this.championId = championId;
-        this.name = name;
-        this.skinPath = skinPath;
-
+    public void init() {
         lvl = DEFAULT_LVL;
         currentExperience = DEFAULT_EXPERIENCE;
         experienceForNextLvl = getExperienceForNextLvl(lvl);
@@ -73,6 +68,15 @@ public class Champion {
         x = DEFAULT_X;
         y = DEFAULT_Y;
         direction = Direction.NONE;
+    }
+
+    public Champion(String sessionId, String championId, String name, String skinPath) {
+        this.sessionId = sessionId;
+        this.championId = championId;
+        this.name = name;
+        this.skinPath = skinPath;
+
+        init();
     }
 
     public void updateTimeToNextAttack() {
@@ -96,6 +100,7 @@ public class Champion {
 
     private void upgradeChampionStats() {
         maxHealth += 10;
+        currentHealth += 10;
         attackDamage += 5;
         attackSpeed += 5;
         attackRange += 1;
