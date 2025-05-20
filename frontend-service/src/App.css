@@ -4,6 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -126,7 +127,16 @@
     background-image: url('/background.png');  /* Użyj ścieżki bezpośrednio do pliku w public */
     background-size: cover;
     background-position: center;
+    
   }
   
   
+}
+
+@layer components {
+  .bar-transition {
+    transition-property: width;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+  }
 }
