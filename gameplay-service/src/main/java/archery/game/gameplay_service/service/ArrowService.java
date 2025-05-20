@@ -3,13 +3,17 @@ package archery.game.gameplay_service.service;
 import archery.game.gameplay_service.entity.Arrow;
 import archery.game.gameplay_service.entity.Arrows;
 import archery.game.gameplay_service.entity.Champion;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 
 @Service
 public class ArrowService {
     private final ChampionRedisService championRedisService;
     private final ObstacleService obstacleService;
-
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(ArrowService.class);
     private final Arrows arrows;
 
     public ArrowService(ChampionRedisService championRedisService, ObstacleService obstacleService) {
@@ -19,12 +23,8 @@ public class ArrowService {
     }
 
 
-    public void UpdateArrows() {
-        arrows.updateArrows();
-        arrows.getTopTargetArrows().removeIf(arrow -> obstacleService.isObstacle(arrow.getX(), arrow.getY()));
-        arrows.getRightTargetArrows().removeIf(arrow -> obstacleService.isObstacle(arrow.getX(), arrow.getY()));
-        arrows.getDownTargetArrows().removeIf(arrow -> obstacleService.isObstacle(arrow.getX(), arrow.getY()));
-        arrows.getLeftTargetArrows().removeIf(arrow -> obstacleService.isObstacle(arrow.getX(), arrow.getY()));
+    public void updateArrows() {
+        arrows.updateArrows(obstacleService);
     }
 
     public void shoot(String sessionId) {
@@ -39,5 +39,18 @@ public class ArrowService {
 
     public Arrow[] getArrowsAsArray() {
         return arrows.getArrowsAsArray();
+    }
+
+    public void collidedArrows(List<Champion> champions) {
+        for (Champion champion: champions){
+            Arrow arrow = arrows.getArrowOrNull(champion.getX(), champion.getY());
+            if (arrow != null) {
+                champion.setCurrentHealth(champion.getCurrentHealth() - arrow.getDamage());
+                if (champion.getCurrentHealth() <= 0) {
+                    champion.init();
+                }
+                arrows.removeArrow(arrow);
+            }
+        }
     }
 }

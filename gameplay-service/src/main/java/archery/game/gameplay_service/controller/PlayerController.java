@@ -54,6 +54,7 @@ public class PlayerController {
         var champions = (List<Champion>)this.championRedisService.findAll();
         champions.removeIf(Objects::isNull);
 
+        this.arrowService.updateArrows();
         for (Champion champion : champions) {
             champion.addExperience(Champion.CONST_EXPERIENCE_GAIN);
             if (timeCounter % (1000 / champion.getMovementSpeed()) == 0) {
@@ -61,8 +62,7 @@ public class PlayerController {
                 champion.updateTimeToNextAttack();
             }
         }
-//        this.playerPositionService.resolveCollisionAndUpdateStates(champions, arrows);
-        this.arrowService.UpdateArrows();
+        this.arrowService.collidedArrows(champions);
 
         this.championRedisService.saveAll(champions);
         var dto = new GameUpdateRes(champions, this.arrowService.getArrowsAsArray());
