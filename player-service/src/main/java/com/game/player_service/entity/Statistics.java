@@ -24,6 +24,12 @@ public class Statistics {
     @Column(name = "average_score")
     private float averageScore;
 
+    @Column(name = "total_kills")
+    private float totalKills;
+
+    @Column(name = "total_deaths")
+    private float totalDeaths;
+
     @Column(name = "kills_per_death")
     private float killsPerDeath;
 
@@ -87,5 +93,25 @@ public class Statistics {
 
     public void setAccountCreatedAt(LocalDateTime accountCreatedAt) {
         this.accountCreatedAt = accountCreatedAt;
+    }
+
+    public float getTotalKills() {
+
+        return totalKills;
+    }
+
+    public void setTotalKills(float totalKills) {
+
+        this.totalKills = totalKills;
+    }
+
+    public float getTotalDeaths() {
+
+        return totalDeaths;
+    }
+
+    public void setTotalDeaths(float totalDeaths) {
+
+        this.totalDeaths = totalDeaths;
     }
 }
