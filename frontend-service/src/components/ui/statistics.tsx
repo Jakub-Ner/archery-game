@@ -15,8 +15,8 @@ export function Statistics({
 }) {
   const stats = [
     { label: "Games played", value: gamesPlayed },
-    { label: "Average score", value: averageScore },
-    { label: "Kills per death", value: killsPerDeath },
+    { label: "Average score", value: averageScore.toFixed(2) },
+    { label: "Kills per death", value: killsPerDeath.toFixed(2) },
     { label: "Best score", value: bestScore },
     { label: "Total time played", value: totalTimePlayed },
   ];

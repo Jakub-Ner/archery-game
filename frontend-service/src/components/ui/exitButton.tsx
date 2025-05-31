@@ -7,7 +7,7 @@ const ExitButton = () => {
 
   const handleExit = () => {
     WSClient.get().stop();
-    navigate("/menu");
+      navigate("/menu", { state: { refresh: true } });
   };
 
   return (

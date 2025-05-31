@@ -20,10 +20,10 @@ async def initialize_statistics(user_id: int, db: Connection):
     await db.execute(
         """
         INSERT INTO statistics (
-            user_id, games_played, best_score, average_score,
+            user_id, games_played, best_score, average_score, total_kills, total_deaths,
             kills_per_death, total_time_played, account_created_at
         )
-        VALUES ($1, 0, 0, 0, 0, 0, $2);
+        VALUES ($1, 0, 0, 0, 0, 0, 0, 0, $2);
         """,
         user_id, datetime.utcnow()
     )
