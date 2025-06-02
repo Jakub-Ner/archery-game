@@ -13,10 +13,12 @@ export function Statistics({
   bestScore: number;
   totalTimePlayed: string;
 }) {
+  const roundToTwo = (num: number): number => Math.round(num * 100) / 100;
+
   const stats = [
     { label: "Games played", value: gamesPlayed },
-    { label: "Average score", value: averageScore.toFixed(2) },
-    { label: "Kills per death", value: killsPerDeath.toFixed(2) },
+    { label: "Average score", value: roundToTwo(averageScore)},
+    { label: "Kills per death", value: roundToTwo(killsPerDeath) },
     { label: "Best score", value: bestScore },
     { label: "Total time played", value: totalTimePlayed },
   ];
