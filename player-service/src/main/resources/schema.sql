@@ -60,6 +60,8 @@ CREATE TABLE IF NOT EXISTS statistics (
   games_played INTEGER DEFAULT 0,
   best_score INTEGER DEFAULT 0,
   average_score FLOAT DEFAULT 0,
+  total_kills FLOAT DEFAULT 0,
+  total_deaths FLOAT DEFAULT 0,
   kills_per_death FLOAT DEFAULT 0,
   total_time_played INTEGER DEFAULT 0,
   account_created_at TIMESTAMP DEFAULT NOW(),

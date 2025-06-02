@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -41,13 +42,18 @@ public class ArrowService {
         return arrows.getArrowsAsArray();
     }
 
-    public void collidedArrows(List<Champion> champions) {
+    public void collidedArrows(List<Champion> champions, Map<String, Integer> playerDeaths, Map<String, Integer> playerKills) {
         for (Champion champion: champions){
             Arrow arrow = arrows.getArrowOrNull(champion.getX(), champion.getY());
             if (arrow != null) {
                 champion.setCurrentHealth(champion.getCurrentHealth() - arrow.getDamage());
                 if (champion.getCurrentHealth() <= 0) {
+                    logger.info("Player {} killed {}", championRedisService.findById(arrow.getSessionId()).getChampionId(), champion.getChampionId());
+
                     champion.init();
+
+                    playerDeaths.merge(champion.getSessionId(), 1, Integer::sum);
+                    playerKills.merge(arrow.getSessionId(), 1, Integer::sum);
                 }
                 arrows.removeArrow(arrow);
             }
