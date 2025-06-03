@@ -27,19 +27,16 @@ export default function MainMenu() {
       </h1>
 
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 items-start justify-items-center gap-2 px-4 sm:px-6 md:px-8 py-8 lg:py-12">
-        {/* Lewa kolumna - Statystyki (teraz pionowe) */}
         <div className="w-full flex justify-center lg:justify-end">
           <StatisticsDemo refreshKey={refreshKey}  />
         </div>
 
-        {/* Środkowa kolumna */}
         <div className="flex flex-col items-center gap-2 w-full max-w-2xl">
-          <UserInfo />  {/* Nasz komponent z nazwą użytkownika */}
+          <UserInfo />
             <SkinMatrixDemo onSkinBought={() => setRefreshKey(prev => prev + 1)} />
           <StartGame />
         </div>
 
-        {/* Prawa kolumna */}
         <div className="w-full flex justify-center lg:justify-start">
             <CoinsDemo refreshKey={refreshKey} />
         </div>
