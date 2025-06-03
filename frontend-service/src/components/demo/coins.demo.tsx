@@ -1,3 +1,4 @@
+// components/demo/coins.demo.tsx
 import { Card, CardContent } from "../ui/card.tsx";
 import { useNavigate } from "react-router-dom";
 import {useUserData} from "@/hooks/useUserData.ts";
@@ -13,6 +14,10 @@ export default function CoinsDemo({ refreshKey }: { refreshKey: number }) {
     navigate("/login");
   };
 
+  const handleBuyCoins = () => {
+    navigate("/payment");
+  };
+
   return (
     <div className="space-y-6">
       <Card className="w-full max-w-sm bg-white shadow-lg p-6 rounded-2xl mb-2">
@@ -25,8 +30,8 @@ export default function CoinsDemo({ refreshKey }: { refreshKey: number }) {
           <div className="mt-4 text-sm text-center text-gray-600">
             Need more coins?{" "}
             <span
-              className="text-primary cursor-pointer"
-              onClick={() => alert("Redirect to purchase page (coming soon)!")}
+              className="text-primary cursor-pointer hover:underline"
+              onClick={handleBuyCoins}
             >
               Buy now
             </span>
