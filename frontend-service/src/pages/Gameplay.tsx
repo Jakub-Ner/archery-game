@@ -132,7 +132,6 @@ export default function Gameplay() {
             }}
         >
           <ExitButton />
-          <h1>Gameplay view</h1>
           {showPopup && (
               <PopupActionMenu
                   onAttack={onOptionQ}
