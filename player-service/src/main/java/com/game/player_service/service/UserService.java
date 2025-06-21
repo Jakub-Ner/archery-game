@@ -29,6 +29,15 @@ public class UserService {
 		return userRepository.findById(userId);
 	}
 
+	// W service/UserService.java
+public void addCoins(Integer userId, int coins) {
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+    
+    user.setGems(user.getGems() + coins);
+    userRepository.save(user);
+}
+
 	@Transactional
 	public void buySkin(Integer userId, Integer skinId) {
 		User user = userRepository.findById(userId)
